@@ -1,0 +1,33 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Python virtual environments
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore logs and temp files
+logs/
+*.log
+*.tmp
+
+# Ignore environment variables
+.env
+.envrc
+
+# Ignore IDE settings
+.vscode/
+.idea/
+
+# Ignore Mac system files
+.Trash/
+.Spotlight-V100/
+.fseventsd/
+
+# Ignore other projects (ensure only your project is included)
+../axiomaticlaw-40346ebf-main/
+../corporate-veil-main/
+../law-of-supremacism/
