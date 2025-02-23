@@ -1,33 +1,121 @@
-# Ignore system files
-.DS_Store
-Thumbs.db
-
-# Ignore Python virtual environments
-venv/
+# 🚀 General Python Ignore Rules
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Ignore logs and temp files
-logs/
-*.log
-*.tmp
-
-# Ignore environment variables
+*.pdb
+*.egg-info/
+dist/
+build/
 .env
-.envrc
+.venv
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Ignore IDE settings
+# 🚀 IDE / Editor Ignore Rules
 .vscode/
 .idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.bak
 
-# Ignore Mac system files
-.Trash/
-.Spotlight-V100/
-.fseventsd/
+# 🚀 OS / System-Specific Ignore Rules
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.trash/
 
-# Ignore other projects (ensure only your project is included)
-../axiomaticlaw-40346ebf-main/
-../corporate-veil-main/
-../law-of-supremacism/
+# 🚀 Virtual Environments & Dependencies
+env/
+.venv/
+venv/
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# 🚀 Logs & Debugging
+logs/
+*.log
+*.out
+*.err
+coverage/
+*.cover
+.npm-debug.log
+
+# 🚀 Git & Version Control Ignore Rules
+.git/
+.gitignore
+*.swp
+*.lock
+*.bak
+*.tmp
+*.orig
+
+# 🚀 Google Cloud & API Keys (SECURITY)
+config/*.json
+config/*.yaml
+config/*.yml
+config/*.pem
+config/*.crt
+config/*.key
+config/*.p12
+config/*.p8
+config/*.enc
+
+# 🚀 Sensitive Environment Variables
+.env
+*.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# 🚀 Database & Cache Files
+*.sqlite3
+db.sqlite3
+*.db
+*.sql
+*.dump
+*.redis
+
+# 🚀 Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# 🚀 Machine Learning & Data Science Ignore Rules
+data/
+datasets/
+*.h5
+*.hdf5
+*.npy
+*.pkl
+*.joblib
+*.csv
+*.tsv
+*.jsonl
+
+# 🚀 Compiled Binary Files
+*.so
+*.o
+*.a
+*.lib
+*.dll
+*.exe
+*.out
+*.class
+*.jar
+*.war
+
+# 🚀 Miscellaneous
+*.pdf
+*.mp4
+*.avi
+*.mov
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
