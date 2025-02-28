@@ -1,109 +1,105 @@
-import os
+import requests
 import time
 import random
-import requests
 import json
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import os
 
-# ✅ Load environment variables
+# Load environment variables
 load_dotenv()
 MONGO_URI = os.getenv("MONGODB_URI")
 
-# ✅ Connect to MongoDB
+# Initialize MongoDB
 client = MongoClient(MONGO_URI)
 db = client["gdelt_db"]
 collection = db["gdelt_news"]
 
-# ✅ Define GDELT API parameters
+# GDELT API URL
 GDELT_API_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
+
+# Headers to Mimic a Real User
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+}
+
+# Query Parameters
 QUERY_PARAMS = {
-    "query": "conflict",  # Modify this query for specific searches
-    "mode": "artlist",  # List of articles
-    "maxrecords": 3,  # Reduce to avoid rate limits
+    "query": "conflict",
+    "mode": "artlist",
+    "maxrecords": 3,
     "format": "json"
 }
 
+MAX_RETRIES = 5  # Maximum retry attempts
+INITIAL_SLEEP = 30  # Initial wait time in seconds
 
-# ✅ Function to fetch news from GDELT API with retry handling
+
 def fetch_gdelt_news():
-    attempt = 0
-    max_attempts = 5  # Set max retries
-
-    while attempt < max_attempts:
+    """
+    Fetch news articles from GDELT API with retry and exponential backoff.
+    """
+    retry_count = 0
+    while retry_count < MAX_RETRIES:
         try:
-            print(f"\n🌎 Fetching GDELT news (Attempt {attempt + 1}/{max_attempts})...")
-            response = requests.get(GDELT_API_URL, params=QUERY_PARAMS, timeout=10)
+            print(f"\n🌎 Fetching GDELT news (Attempt {retry_count + 1}/{MAX_RETRIES})...")
+            response = requests.get(GDELT_API_URL, headers=HEADERS, params=QUERY_PARAMS, timeout=10)
 
-            # ✅ Success: Process articles
+            # If request is successful, process data
             if response.status_code == 200:
                 data = response.json()
                 articles = data.get("articles", [])
-
                 if not articles:
                     print("⚠️ No new articles found.")
-                    return []
+                    return
 
-                print(f"✅ Retrieved {len(articles)} articles from GDELT.")
-                return articles
+                print(f"✅ {len(articles)} articles fetched successfully!")
+                store_articles(articles)
+                return  # Exit loop if successful
 
-            # 🚨 Handle API rate limits (429)
+            # Handle 429 Too Many Requests Error
             elif response.status_code == 429:
-                wait_time = 120 * (2 ** attempt) + random.randint(10, 30)  # Exponential backoff
+                wait_time = INITIAL_SLEEP * (2 ** retry_count)  # Exponential backoff
                 print(f"⚠️ 429 Error: Too Many Requests. Retrying in {wait_time} seconds...")
                 time.sleep(wait_time)
 
-            # 🚨 Other errors
             else:
-                print(f"❌ Error fetching GDELT News: {response.status_code} - {response.text}")
+                print(f"❌ Unexpected Error: {response.status_code} - {response.text}")
+                break  # Exit loop on non-retryable errors
 
         except requests.RequestException as e:
-            print(f"❌ Request error: {e}")
+            print(f"❌ Request Failed: {str(e)}")
 
-        attempt += 1
+        retry_count += 1
 
-    print("❌ Max retry attempts reached. Exiting.")
-    return []
+    print("🚨 Max retries reached. Exiting.")
 
 
-# ✅ Function to store news in MongoDB
-def store_gdelt_news(articles):
-    if not articles:
-        print("⚠️ No new articles to store.")
-        return
+def store_articles(articles):
+    """
+    Store articles in MongoDB, avoiding duplicates.
+    """
+    existing_urls = {doc["url"] for doc in collection.find({}, {"url": 1})}
 
-    new_count = 0
-    updated_count = 0
-
+    new_articles = []
     for article in articles:
-        article_id = article.get("url", "")  # Using URL as unique identifier
+        if article["url"] not in existing_urls:
+            new_articles.append({
+                "url": article["url"],
+                "title": article["title"],
+                "seendate": article["seendate"],
+                "source": article.get("domain", "Unknown"),
+                "language": article.get("language", "Unknown"),
+                "sourcecountry": article.get("sourcecountry", "Unknown"),
+                "image": article.get("socialimage", ""),
+            })
 
-        # ✅ Prepare MongoDB document
-        news_data = {
-            "_id": article_id,
-            "title": article.get("title", "No Title"),
-            "url": article.get("url"),
-            "source": article.get("source", "Unknown"),
-            "language": article.get("language", "Unknown"),
-            "date": article.get("seendate", "Unknown"),
-            "location": article.get("location", "Unknown"),
-            "topics": article.get("themes", []),
-            "social_shares": article.get("socialshares", {}),
-            "summary": article.get("snippet", "No summary available"),
-        }
-
-        # ✅ Insert or update document
-        result = collection.update_one({"_id": article_id}, {"$set": news_data}, upsert=True)
-
-        if result.matched_count > 0:
-            updated_count += 1
-        else:
-            new_count += 1
-
-    print(f"\n✅ Stored GDELT News: {new_count} new articles, {updated_count} updated.")
+    if new_articles:
+        collection.insert_many(new_articles)
+        print(f"✅ Stored {len(new_articles)} new articles in MongoDB!")
+    else:
+        print("⚠️ No new articles to store.")
 
 
-# ✅ Run the full pipeline
 if __name__ == "__main__":
-    articles = fetch_gdelt_news()
-    store_gdelt_news(articles)
+    fetch_gdelt_news()
