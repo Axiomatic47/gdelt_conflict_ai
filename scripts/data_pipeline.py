@@ -1,8 +1,15 @@
+import sys
+import os
 import time
 import schedule
-from store_bigquery_to_mongo import fetch_and_store_gdelt
-from nlp_analysis import run_nlp_processing
-from store_nlp_results import store_nlp_results
+
+# Ensure the `scripts` directory is included in the import path
+sys.path.append(os.path.abspath("scripts"))
+
+# Corrected imports from the `scripts` module
+from bigquery_client import fetch_and_store_gdelt
+from nlp_pipeline import run_nlp_processing
+from store_gdelt_news import store_nlp_results
 from visualize_nlp_results import generate_nlp_charts
 from visualize_conflict_map import generate_conflict_map
 

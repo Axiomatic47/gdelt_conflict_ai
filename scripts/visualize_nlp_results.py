@@ -1,9 +1,17 @@
 import os
-import pandas as pd
+import matplotlib
+
+# ✅ Use non-interactive backend to avoid GUI issues on macOS or headless systems
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
-import seaborn as sns
+import pandas as pd
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import seaborn as sns
+
+# ✅ Prevent macOS Input Method Kit (IMK) errors
+os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
 # Load environment variables
 load_dotenv()
@@ -14,19 +22,30 @@ client = MongoClient(MONGO_URI)
 db = client["gdelt_db"]
 collection = db["nlp_analysis_results"]
 
-# Fetch NLP-processed conflict data
+# Fetch NLP-processed data
+print("\n🔍 Fetching NLP-processed conflict data from MongoDB...")
 df = pd.DataFrame(list(collection.find({}, {"sentiment_transformers": 1, "_id": 0})))
 
-# Check if data exists
+# Ensure there's data to visualize
 if df.empty:
-    print("❌ No NLP data found! Exiting...")
+    print("⚠️ No NLP-processed data found! Exiting visualization.")
     exit()
 
-# Plot Sentiment Distribution
-plt.figure(figsize=(8, 6))
-sns.countplot(x="sentiment_transformers", data=df, order=df["sentiment_transformers"].value_counts().index)
-plt.title("Distribution of Sentiment in Conflict Data")
-plt.xlabel("Sentiment")
+# Count sentiment occurrences
+sentiment_counts = df["sentiment_transformers"].value_counts()
+
+# ✅ Plot sentiment distribution
+plt.figure(figsize=(8, 5))
+sns.barplot(x=sentiment_counts.index, y=sentiment_counts.values, palette="coolwarm")
+plt.xlabel("Sentiment Category")
 plt.ylabel("Count")
-plt.xticks(rotation=45)
-plt.show()
+plt.title("Distribution of Sentiment in Conflict Data")
+
+# ✅ Save plot as an image instead of displaying in GUI
+output_path = "visualizations/sentiment_distribution.png"
+plt.savefig(output_path)
+print(f"\n✅ Sentiment distribution saved to {output_path}")
+
+# Close the plot to free memory
+plt.close()
+print("\n✅ NLP Visualization completed!\n")
