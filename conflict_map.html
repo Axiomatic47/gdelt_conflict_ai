@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_897599f19c018cd6414c0e3f70e57165 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_897599f19c018cd6414c0e3f70e57165" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_897599f19c018cd6414c0e3f70e57165 = L.map(
+                "map_897599f19c018cd6414c0e3f70e57165",
+                {
+                    center: [39.12257695500001, 24.14534926113305],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b39214f7e8de50c718127c132c0fc551 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b39214f7e8de50c718127c132c0fc551.addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var marker_9e61ef07b4416884d23b91599e689b8f = L.marker(
+                [47.8692882, -3.5505644],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_a85e2cd8618600729c67a6f29b80f4d6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9e61ef07b4416884d23b91599e689b8f.setIcon(icon_a85e2cd8618600729c67a6f29b80f4d6);
+        
+    
+        var popup_ad3b0ff28ac84e0417e7066677ec6a5d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_14c26464aed69f887b80e6e2b55632e5 = $(`<div id="html_14c26464aed69f887b80e6e2b55632e5" style="width: 100.0%; height: 100.0%;">Quimperle, Bretagne, France - Sentiment: POSITIVE</div>`)[0];
+                popup_ad3b0ff28ac84e0417e7066677ec6a5d.setContent(html_14c26464aed69f887b80e6e2b55632e5);
+            
+        
+
+        marker_9e61ef07b4416884d23b91599e689b8f.bindPopup(popup_ad3b0ff28ac84e0417e7066677ec6a5d)
+        ;
+
+        
+    
+    
+            var marker_a7efc1f4540e8ee5bd86d2ef5937940b = L.marker(
+                [48.9747357, 14.474285],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_3aea2a4412d73c0c3d404ce1990df238 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a7efc1f4540e8ee5bd86d2ef5937940b.setIcon(icon_3aea2a4412d73c0c3d404ce1990df238);
+        
+    
+        var popup_b534bd32dde503b6012f0a539e054938 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46655f4f3ab404760bffd6ccb7af85b2 = $(`<div id="html_46655f4f3ab404760bffd6ccb7af85b2" style="width: 100.0%; height: 100.0%;">Budejovice, Jihoceský, Czech Republic - Sentiment: POSITIVE</div>`)[0];
+                popup_b534bd32dde503b6012f0a539e054938.setContent(html_46655f4f3ab404760bffd6ccb7af85b2);
+            
+        
+
+        marker_a7efc1f4540e8ee5bd86d2ef5937940b.bindPopup(popup_b534bd32dde503b6012f0a539e054938)
+        ;
+
+        
+    
+    
+            var marker_9b9b2cc513b1aea7a2a4f46041e35a3c = L.marker(
+                [36.638392, 127.6961188],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_0c41a7dfb1c6920067056da8d2f35358 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9b9b2cc513b1aea7a2a4f46041e35a3c.setIcon(icon_0c41a7dfb1c6920067056da8d2f35358);
+        
+    
+        var popup_38a4b97682874ddcec617f6a3df1eb03 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_42ddb8c52793a7a58432dbb396c36049 = $(`<div id="html_42ddb8c52793a7a58432dbb396c36049" style="width: 100.0%; height: 100.0%;">South Korea - Sentiment: POSITIVE</div>`)[0];
+                popup_38a4b97682874ddcec617f6a3df1eb03.setContent(html_42ddb8c52793a7a58432dbb396c36049);
+            
+        
+
+        marker_9b9b2cc513b1aea7a2a4f46041e35a3c.bindPopup(popup_38a4b97682874ddcec617f6a3df1eb03)
+        ;
+
+        
+    
+    
+            var marker_04fde008c95905e7097f82c6c37b5fb8 = L.marker(
+                [28.3780464, 83.9999901],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_540ef6f8875f63a73eea61053360c0b8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_04fde008c95905e7097f82c6c37b5fb8.setIcon(icon_540ef6f8875f63a73eea61053360c0b8);
+        
+    
+        var popup_0340c4969a06c1aeddaca5938efce4fa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2816006de3ad19580dcb7078cfb8adf3 = $(`<div id="html_2816006de3ad19580dcb7078cfb8adf3" style="width: 100.0%; height: 100.0%;">Nepal - Sentiment: POSITIVE</div>`)[0];
+                popup_0340c4969a06c1aeddaca5938efce4fa.setContent(html_2816006de3ad19580dcb7078cfb8adf3);
+            
+        
+
+        marker_04fde008c95905e7097f82c6c37b5fb8.bindPopup(popup_0340c4969a06c1aeddaca5938efce4fa)
+        ;
+
+        
+    
+    
+            var marker_1d18a7af5b0129cbec4fcd4f6ab5a952 = L.marker(
+                [40.9699889, -77.7278831],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_d2591a8dbe320cbb80ed20f6c9f767ae = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_1d18a7af5b0129cbec4fcd4f6ab5a952.setIcon(icon_d2591a8dbe320cbb80ed20f6c9f767ae);
+        
+    
+        var popup_c51e523446702732e770fdfd8e71965c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d27627dd6d117d105cece4dfbfc3a807 = $(`<div id="html_d27627dd6d117d105cece4dfbfc3a807" style="width: 100.0%; height: 100.0%;">Pennsylvania, United States - Sentiment: POSITIVE</div>`)[0];
+                popup_c51e523446702732e770fdfd8e71965c.setContent(html_d27627dd6d117d105cece4dfbfc3a807);
+            
+        
+
+        marker_1d18a7af5b0129cbec4fcd4f6ab5a952.bindPopup(popup_c51e523446702732e770fdfd8e71965c)
+        ;
+
+        
+    
+    
+            var marker_b8e5d432a26294de1d39f6c2894cc952 = L.marker(
+                [34.8147886, 38.42317811509885],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_33ff554a048f4248cbe0125137352bc3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b8e5d432a26294de1d39f6c2894cc952.setIcon(icon_33ff554a048f4248cbe0125137352bc3);
+        
+    
+        var popup_032507245bf4c0dbdb4f8ea79e282e52 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fcd78bda6775b69e94afb08b556828ef = $(`<div id="html_fcd78bda6775b69e94afb08b556828ef" style="width: 100.0%; height: 100.0%;">Syria - Sentiment: POSITIVE</div>`)[0];
+                popup_032507245bf4c0dbdb4f8ea79e282e52.setContent(html_fcd78bda6775b69e94afb08b556828ef);
+            
+        
+
+        marker_b8e5d432a26294de1d39f6c2894cc952.bindPopup(popup_032507245bf4c0dbdb4f8ea79e282e52)
+        ;
+
+        
+    
+    
+            var marker_b5e8dd4603f68a77af445be200df8e47 = L.marker(
+                [23.1301964, 113.2592945],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_ea4517b599c3c536197c42d118b48a0b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b5e8dd4603f68a77af445be200df8e47.setIcon(icon_ea4517b599c3c536197c42d118b48a0b);
+        
+    
+        var popup_085d1644c1cd5539b8137ebab6ad09d1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_39800555036e81c194ff47f2996fd87d = $(`<div id="html_39800555036e81c194ff47f2996fd87d" style="width: 100.0%; height: 100.0%;">Guangzhou, Guangdong, China - Sentiment: POSITIVE</div>`)[0];
+                popup_085d1644c1cd5539b8137ebab6ad09d1.setContent(html_39800555036e81c194ff47f2996fd87d);
+            
+        
+
+        marker_b5e8dd4603f68a77af445be200df8e47.bindPopup(popup_085d1644c1cd5539b8137ebab6ad09d1)
+        ;
+
+        
+    
+    
+            var marker_8e04986719339f20c72c8efd7caf1228 = L.marker(
+                [43.4832523, -1.5592776],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_a14754f0a529bec08af01080953a4f85 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8e04986719339f20c72c8efd7caf1228.setIcon(icon_a14754f0a529bec08af01080953a4f85);
+        
+    
+        var popup_0e749993ca5697def772472b8a2c87f8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a03a2fca004340071bf47d422460ad14 = $(`<div id="html_a03a2fca004340071bf47d422460ad14" style="width: 100.0%; height: 100.0%;">Biarritz, Aquitaine, France - Sentiment: POSITIVE</div>`)[0];
+                popup_0e749993ca5697def772472b8a2c87f8.setContent(html_a03a2fca004340071bf47d422460ad14);
+            
+        
+
+        marker_8e04986719339f20c72c8efd7caf1228.bindPopup(popup_0e749993ca5697def772472b8a2c87f8)
+        ;
+
+        
+    
+    
+            var marker_005134fc8da2accedc7b097649d447d3 = L.marker(
+                [45.9427706, -0.8895061],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_cb99007418dbe75c6a101949684c9374 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_005134fc8da2accedc7b097649d447d3.setIcon(icon_cb99007418dbe75c6a101949684c9374);
+        
+    
+        var popup_6989aeaa696f1e501794522f7ac82731 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_75b8c82a5aa9ced63642fcf98be983c8 = $(`<div id="html_75b8c82a5aa9ced63642fcf98be983c8" style="width: 100.0%; height: 100.0%;">Charente, France (general), France - Sentiment: POSITIVE</div>`)[0];
+                popup_6989aeaa696f1e501794522f7ac82731.setContent(html_75b8c82a5aa9ced63642fcf98be983c8);
+            
+        
+
+        marker_005134fc8da2accedc7b097649d447d3.bindPopup(popup_6989aeaa696f1e501794522f7ac82731)
+        ;
+
+        
+    
+    
+            var marker_2db4ac3ec03f33879a0098f4edba0d14 = L.marker(
+                [52.5103817, 13.4349112],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_7e5189775e6883606f621ee7749f5eac = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2db4ac3ec03f33879a0098f4edba0d14.setIcon(icon_7e5189775e6883606f621ee7749f5eac);
+        
+    
+        var popup_f6cc5995f4a7f012f0405219d0909ba1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9fa364112ae3a33de2ddea829960e5d5 = $(`<div id="html_9fa364112ae3a33de2ddea829960e5d5" style="width: 100.0%; height: 100.0%;">Berlin, Berlin, Germany - Sentiment: POSITIVE</div>`)[0];
+                popup_f6cc5995f4a7f012f0405219d0909ba1.setContent(html_9fa364112ae3a33de2ddea829960e5d5);
+            
+        
+
+        marker_2db4ac3ec03f33879a0098f4edba0d14.bindPopup(popup_f6cc5995f4a7f012f0405219d0909ba1)
+        ;
+
+        
+    
+    
+            var marker_c5e5866cdb8ac5dce093350cd991fd2b = L.marker(
+                [55.7505412, 37.6174782],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_6c2e7c70c423b9a3f6f2544b5edcbd55 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_c5e5866cdb8ac5dce093350cd991fd2b.setIcon(icon_6c2e7c70c423b9a3f6f2544b5edcbd55);
+        
+    
+        var popup_22804bcf17d09436078e20546790e695 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4cad83fed1dd085dca257f560d1d496d = $(`<div id="html_4cad83fed1dd085dca257f560d1d496d" style="width: 100.0%; height: 100.0%;">Moscow, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_22804bcf17d09436078e20546790e695.setContent(html_4cad83fed1dd085dca257f560d1d496d);
+            
+        
+
+        marker_c5e5866cdb8ac5dce093350cd991fd2b.bindPopup(popup_22804bcf17d09436078e20546790e695)
+        ;
+
+        
+    
+    
+            var marker_8663fcd5994de41f2e30f5fb6c4ff08d = L.marker(
+                [55.7516212, 37.618122044334896],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_d2054ffd12e3055e6b0399192bd88d34 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8663fcd5994de41f2e30f5fb6c4ff08d.setIcon(icon_d2054ffd12e3055e6b0399192bd88d34);
+        
+    
+        var popup_601fb3bbba2a2bd7e48b2ec8cbcbb53c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_931f040214e0c9f1e46dc8519d497d59 = $(`<div id="html_931f040214e0c9f1e46dc8519d497d59" style="width: 100.0%; height: 100.0%;">Kremlin, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_601fb3bbba2a2bd7e48b2ec8cbcbb53c.setContent(html_931f040214e0c9f1e46dc8519d497d59);
+            
+        
+
+        marker_8663fcd5994de41f2e30f5fb6c4ff08d.bindPopup(popup_601fb3bbba2a2bd7e48b2ec8cbcbb53c)
+        ;
+
+        
+    
+    
+            var marker_66475a1971303be26e9c9e621d029577 = L.marker(
+                [56.941078399999995, 24.096704188078494],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_48d25f55781678723e937512375de680 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_66475a1971303be26e9c9e621d029577.setIcon(icon_48d25f55781678723e937512375de680);
+        
+    
+        var popup_c48010cc89a653b400e5381ca63cac5a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_82fc59724f3c2220971bd82eda8fec5b = $(`<div id="html_82fc59724f3c2220971bd82eda8fec5b" style="width: 100.0%; height: 100.0%;">Riga, Riga, Latvia - Sentiment: POSITIVE</div>`)[0];
+                popup_c48010cc89a653b400e5381ca63cac5a.setContent(html_82fc59724f3c2220971bd82eda8fec5b);
+            
+        
+
+        marker_66475a1971303be26e9c9e621d029577.bindPopup(popup_c48010cc89a653b400e5381ca63cac5a)
+        ;
+
+        
+    
+    
+            var marker_a01b28aba0afe9a2cea02aa3c87b5234 = L.marker(
+                [48.9747357, 14.474285],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_d94b5d7cb357e4b209840710c9f5717c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a01b28aba0afe9a2cea02aa3c87b5234.setIcon(icon_d94b5d7cb357e4b209840710c9f5717c);
+        
+    
+        var popup_7ea176100b150d1191109e910f29de96 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dacd7cdda16d7b82d4f13221c765a385 = $(`<div id="html_dacd7cdda16d7b82d4f13221c765a385" style="width: 100.0%; height: 100.0%;">Budejovice, Jihoceský, Czech Republic - Sentiment: POSITIVE</div>`)[0];
+                popup_7ea176100b150d1191109e910f29de96.setContent(html_dacd7cdda16d7b82d4f13221c765a385);
+            
+        
+
+        marker_a01b28aba0afe9a2cea02aa3c87b5234.bindPopup(popup_7ea176100b150d1191109e910f29de96)
+        ;
+
+        
+    
+    
+            var marker_b58e577d006d707b7fb9bcc0f246a21a = L.marker(
+                [41.006381, 28.9758715],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_99c79d7af976d00af5d8fb81741c64d3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b58e577d006d707b7fb9bcc0f246a21a.setIcon(icon_99c79d7af976d00af5d8fb81741c64d3);
+        
+    
+        var popup_440c34dc7b2d4ea80b2468261c2a8032 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af37707c115ced2e8e5dc929b821456d = $(`<div id="html_af37707c115ced2e8e5dc929b821456d" style="width: 100.0%; height: 100.0%;">Istanbul, Istanbul, Turkey - Sentiment: POSITIVE</div>`)[0];
+                popup_440c34dc7b2d4ea80b2468261c2a8032.setContent(html_af37707c115ced2e8e5dc929b821456d);
+            
+        
+
+        marker_b58e577d006d707b7fb9bcc0f246a21a.bindPopup(popup_440c34dc7b2d4ea80b2468261c2a8032)
+        ;
+
+        
+    
+    
+            var marker_91785a99c6a096e26bfd8441c52bcf51 = L.marker(
+                [42.6935092, 23.335316870417927],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_52f65b37dafe9aaedf4a3dcc1161ca02 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_91785a99c6a096e26bfd8441c52bcf51.setIcon(icon_52f65b37dafe9aaedf4a3dcc1161ca02);
+        
+    
+        var popup_e4f0105b4ebd677667f2074130eda105 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0d0ed77188cae4d61573b4ff77b46ef8 = $(`<div id="html_0d0ed77188cae4d61573b4ff77b46ef8" style="width: 100.0%; height: 100.0%;">Sofia, Sofiya-Grad, Bulgaria - Sentiment: POSITIVE</div>`)[0];
+                popup_e4f0105b4ebd677667f2074130eda105.setContent(html_0d0ed77188cae4d61573b4ff77b46ef8);
+            
+        
+
+        marker_91785a99c6a096e26bfd8441c52bcf51.bindPopup(popup_e4f0105b4ebd677667f2074130eda105)
+        ;
+
+        
+    
+    
+            var marker_e906c392ca1281ac8707ea4834e349ae = L.marker(
+                [42.8790424, 20.8657862],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_c65bfd8f082db05d99f3c968ec6daffd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e906c392ca1281ac8707ea4834e349ae.setIcon(icon_c65bfd8f082db05d99f3c968ec6daffd);
+        
+    
+        var popup_e68c8da4589ef99fed3c62d75ca15d42 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_19abac818f993c729d4c958a39c6f1e6 = $(`<div id="html_19abac818f993c729d4c958a39c6f1e6" style="width: 100.0%; height: 100.0%;">Mitrovica, Mitrovica, Kosovo - Sentiment: POSITIVE</div>`)[0];
+                popup_e68c8da4589ef99fed3c62d75ca15d42.setContent(html_19abac818f993c729d4c958a39c6f1e6);
+            
+        
+
+        marker_e906c392ca1281ac8707ea4834e349ae.bindPopup(popup_e68c8da4589ef99fed3c62d75ca15d42)
+        ;
+
+        
+    
+    
+            var marker_97290b303bc3fcce6af88400b83d1d70 = L.marker(
+                [33.4484367, -112.074141],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_ac2d60d2e4f6dca1ced4afc921d8262b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_97290b303bc3fcce6af88400b83d1d70.setIcon(icon_ac2d60d2e4f6dca1ced4afc921d8262b);
+        
+    
+        var popup_a750e10e89a16b07e467230dd226023d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_928dfa634e031868a379e1e6a028f2ec = $(`<div id="html_928dfa634e031868a379e1e6a028f2ec" style="width: 100.0%; height: 100.0%;">Phoenix, Arizona, United States - Sentiment: POSITIVE</div>`)[0];
+                popup_a750e10e89a16b07e467230dd226023d.setContent(html_928dfa634e031868a379e1e6a028f2ec);
+            
+        
+
+        marker_97290b303bc3fcce6af88400b83d1d70.bindPopup(popup_a750e10e89a16b07e467230dd226023d)
+        ;
+
+        
+    
+    
+            var marker_e1e63d74f7db7bd1ca47581dd676962e = L.marker(
+                [38.8950368, -77.0365427],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_1d887920326816e05f7848dcf6fd8bdb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e1e63d74f7db7bd1ca47581dd676962e.setIcon(icon_1d887920326816e05f7848dcf6fd8bdb);
+        
+    
+        var popup_a04c23d9098f7143104944378b38e40d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8681b712a7308c3b15a0569def34eb1e = $(`<div id="html_8681b712a7308c3b15a0569def34eb1e" style="width: 100.0%; height: 100.0%;">Washington, District of Columbia, United States - Sentiment: POSITIVE</div>`)[0];
+                popup_a04c23d9098f7143104944378b38e40d.setContent(html_8681b712a7308c3b15a0569def34eb1e);
+            
+        
+
+        marker_e1e63d74f7db7bd1ca47581dd676962e.bindPopup(popup_a04c23d9098f7143104944378b38e40d)
+        ;
+
+        
+    
+    
+            var marker_3477fb364876e90ae3ffaed5cef8432e = L.marker(
+                [38.8950368, -77.0365427],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_5a1f251b94fef83474d64f6528a2d750 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_3477fb364876e90ae3ffaed5cef8432e.setIcon(icon_5a1f251b94fef83474d64f6528a2d750);
+        
+    
+        var popup_ba83e405b18c056323c1d42b5d44ad21 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_508ad5365b4b90bd35c3c7711f8f5010 = $(`<div id="html_508ad5365b4b90bd35c3c7711f8f5010" style="width: 100.0%; height: 100.0%;">Washington, District of Columbia, United States - Sentiment: POSITIVE</div>`)[0];
+                popup_ba83e405b18c056323c1d42b5d44ad21.setContent(html_508ad5365b4b90bd35c3c7711f8f5010);
+            
+        
+
+        marker_3477fb364876e90ae3ffaed5cef8432e.bindPopup(popup_ba83e405b18c056323c1d42b5d44ad21)
+        ;
+
+        
+    
+    
+            var marker_7212cb091071dc267f5ab61251f465df = L.marker(
+                [28.0000272, 2.9999825],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_eb82d2d596b8b5ef70c472e18dc38c31 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_7212cb091071dc267f5ab61251f465df.setIcon(icon_eb82d2d596b8b5ef70c472e18dc38c31);
+        
+    
+        var popup_968cc36cefc3a162dd4aada25477c96d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3d326c296c8e60536edd367866819ba2 = $(`<div id="html_3d326c296c8e60536edd367866819ba2" style="width: 100.0%; height: 100.0%;">Algeria - Sentiment: POSITIVE</div>`)[0];
+                popup_968cc36cefc3a162dd4aada25477c96d.setContent(html_3d326c296c8e60536edd367866819ba2);
+            
+        
+
+        marker_7212cb091071dc267f5ab61251f465df.bindPopup(popup_968cc36cefc3a162dd4aada25477c96d)
+        ;
+
+        
+    
+    
+            var marker_986fca4497aef964af1cd8833afbed0b = L.marker(
+                [35.0000663, 104.999955],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_225cbbc1076e0091ca372b3f35f29aac = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_986fca4497aef964af1cd8833afbed0b.setIcon(icon_225cbbc1076e0091ca372b3f35f29aac);
+        
+    
+        var popup_a3c75e03a69e87459aedca01bbf61b01 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d74568eeca5a6268dbf19d87448128c9 = $(`<div id="html_d74568eeca5a6268dbf19d87448128c9" style="width: 100.0%; height: 100.0%;">China - Sentiment: POSITIVE</div>`)[0];
+                popup_a3c75e03a69e87459aedca01bbf61b01.setContent(html_d74568eeca5a6268dbf19d87448128c9);
+            
+        
+
+        marker_986fca4497aef964af1cd8833afbed0b.bindPopup(popup_a3c75e03a69e87459aedca01bbf61b01)
+        ;
+
+        
+    
+    
+            var marker_88ac2ed3bb4f5e04751672535c31d1be = L.marker(
+                [35.0000663, 104.999955],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_8ec5c7bddb21dde5aed7ede9b4f2f1d9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_88ac2ed3bb4f5e04751672535c31d1be.setIcon(icon_8ec5c7bddb21dde5aed7ede9b4f2f1d9);
+        
+    
+        var popup_547fdca01a47318db22743b18190c47d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc2ea1dd043b18fb3ba37bf47ac04ff0 = $(`<div id="html_cc2ea1dd043b18fb3ba37bf47ac04ff0" style="width: 100.0%; height: 100.0%;">China - Sentiment: POSITIVE</div>`)[0];
+                popup_547fdca01a47318db22743b18190c47d.setContent(html_cc2ea1dd043b18fb3ba37bf47ac04ff0);
+            
+        
+
+        marker_88ac2ed3bb4f5e04751672535c31d1be.bindPopup(popup_547fdca01a47318db22743b18190c47d)
+        ;
+
+        
+    
+    
+            var marker_bf3c1e3cadca7be3b6bf428887120a9f = L.marker(
+                [22.3511148, 78.6677428],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_413a92bbc723a3f76ed58b4b2c6331c8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_bf3c1e3cadca7be3b6bf428887120a9f.setIcon(icon_413a92bbc723a3f76ed58b4b2c6331c8);
+        
+    
+        var popup_217d102533b3513291b30c2c37958f84 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_830ebb87330c8317a46c0e5d6a40a452 = $(`<div id="html_830ebb87330c8317a46c0e5d6a40a452" style="width: 100.0%; height: 100.0%;">India - Sentiment: POSITIVE</div>`)[0];
+                popup_217d102533b3513291b30c2c37958f84.setContent(html_830ebb87330c8317a46c0e5d6a40a452);
+            
+        
+
+        marker_bf3c1e3cadca7be3b6bf428887120a9f.bindPopup(popup_217d102533b3513291b30c2c37958f84)
+        ;
+
+        
+    
+    
+            var marker_3ee1e610731747980d48dfdb9a2f1e09 = L.marker(
+                [31.39480005, 34.63358319049945],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_fdf3bf017f936989b7483150eb5cae0a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_3ee1e610731747980d48dfdb9a2f1e09.setIcon(icon_fdf3bf017f936989b7483150eb5cae0a);
+        
+    
+        var popup_ff95040ebbc744449918c226df611e9f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7aa0bc3817747cb80c2987f4d2d6acc8 = $(`<div id="html_7aa0bc3817747cb80c2987f4d2d6acc8" style="width: 100.0%; height: 100.0%;">Israel - Sentiment: POSITIVE</div>`)[0];
+                popup_ff95040ebbc744449918c226df611e9f.setContent(html_7aa0bc3817747cb80c2987f4d2d6acc8);
+            
+        
+
+        marker_3ee1e610731747980d48dfdb9a2f1e09.bindPopup(popup_ff95040ebbc744449918c226df611e9f)
+        ;
+
+        
+    
+    
+            var marker_ced9e169c0ece086c50caa4f8d3693c4 = L.marker(
+                [52.2434979, 5.6343227],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_f4c110c0165c7d248363e8eab2007be3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ced9e169c0ece086c50caa4f8d3693c4.setIcon(icon_f4c110c0165c7d248363e8eab2007be3);
+        
+    
+        var popup_f393b9223d70c98d87c6438e45f4426c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_47f3f95f273f38245bcb01452c094600 = $(`<div id="html_47f3f95f273f38245bcb01452c094600" style="width: 100.0%; height: 100.0%;">Netherlands - Sentiment: POSITIVE</div>`)[0];
+                popup_f393b9223d70c98d87c6438e45f4426c.setContent(html_47f3f95f273f38245bcb01452c094600);
+            
+        
+
+        marker_ced9e169c0ece086c50caa4f8d3693c4.bindPopup(popup_f393b9223d70c98d87c6438e45f4426c)
+        ;
+
+        
+    
+    
+            var marker_5a9d305b7eff21d0dd53fb1b4f410b00 = L.marker(
+                [64.5731537, 11.52803643954819],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_b7e244e23ac0fc3f1a4efd14fff42acd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5a9d305b7eff21d0dd53fb1b4f410b00.setIcon(icon_b7e244e23ac0fc3f1a4efd14fff42acd);
+        
+    
+        var popup_b611b45e4a73bd48e27e6c1c5f37603b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8fc37704d358c9a3b7b5a471f236146f = $(`<div id="html_8fc37704d358c9a3b7b5a471f236146f" style="width: 100.0%; height: 100.0%;">Norway - Sentiment: POSITIVE</div>`)[0];
+                popup_b611b45e4a73bd48e27e6c1c5f37603b.setContent(html_8fc37704d358c9a3b7b5a471f236146f);
+            
+        
+
+        marker_5a9d305b7eff21d0dd53fb1b4f410b00.bindPopup(popup_b611b45e4a73bd48e27e6c1c5f37603b)
+        ;
+
+        
+    
+    
+            var marker_8c3d8b5c6895c108143dfdc386d9aa0d = L.marker(
+                [64.6863136, 97.7453061],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_e95872a75c61deffd21e491896e56735 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8c3d8b5c6895c108143dfdc386d9aa0d.setIcon(icon_e95872a75c61deffd21e491896e56735);
+        
+    
+        var popup_e8ab95443215fd1c9486ef0c96c825c4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b71817771e13aa208948eb796d866a62 = $(`<div id="html_b71817771e13aa208948eb796d866a62" style="width: 100.0%; height: 100.0%;">Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_e8ab95443215fd1c9486ef0c96c825c4.setContent(html_b71817771e13aa208948eb796d866a62);
+            
+        
+
+        marker_8c3d8b5c6895c108143dfdc386d9aa0d.bindPopup(popup_e8ab95443215fd1c9486ef0c96c825c4)
+        ;
+
+        
+    
+    
+            var marker_15f7d295b955584791be3ed0de5e7367 = L.marker(
+                [64.6863136, 97.7453061],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_75ef0a4e813f485e23e4db29943f5359 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_15f7d295b955584791be3ed0de5e7367.setIcon(icon_75ef0a4e813f485e23e4db29943f5359);
+        
+    
+        var popup_cc961ec09ca1fbe047b962c13cf380e8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f744b992c95120418e48248739059035 = $(`<div id="html_f744b992c95120418e48248739059035" style="width: 100.0%; height: 100.0%;">Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_cc961ec09ca1fbe047b962c13cf380e8.setContent(html_f744b992c95120418e48248739059035);
+            
+        
+
+        marker_15f7d295b955584791be3ed0de5e7367.bindPopup(popup_cc961ec09ca1fbe047b962c13cf380e8)
+        ;
+
+        
+    
+    
+            var marker_bae70495ee2dfc9f6d09f28d41526eba = L.marker(
+                [51.5118606, -0.0780174],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_eaeda6b68e88432fd2cc2e502c4ce131 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_bae70495ee2dfc9f6d09f28d41526eba.setIcon(icon_eaeda6b68e88432fd2cc2e502c4ce131);
+        
+    
+        var popup_eef5e748aea073eabfe32e6e5e9c68ee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0d43f7fc85d27d1915027da7b2cfc350 = $(`<div id="html_0d43f7fc85d27d1915027da7b2cfc350" style="width: 100.0%; height: 100.0%;">London, London, City of, United Kingdom - Sentiment: POSITIVE</div>`)[0];
+                popup_eef5e748aea073eabfe32e6e5e9c68ee.setContent(html_0d43f7fc85d27d1915027da7b2cfc350);
+            
+        
+
+        marker_bae70495ee2dfc9f6d09f28d41526eba.bindPopup(popup_eef5e748aea073eabfe32e6e5e9c68ee)
+        ;
+
+        
+    
+    
+            var marker_ea57f501c2f11581363ada47bde276b3 = L.marker(
+                [64.6863136, 97.7453061],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_bba3bff32edcaf3b1d8898eb4414a407 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ea57f501c2f11581363ada47bde276b3.setIcon(icon_bba3bff32edcaf3b1d8898eb4414a407);
+        
+    
+        var popup_04ef9718d1b9988e209b2795f221e063 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b519c3cab841813d077f981fda77e7f0 = $(`<div id="html_b519c3cab841813d077f981fda77e7f0" style="width: 100.0%; height: 100.0%;">Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_04ef9718d1b9988e209b2795f221e063.setContent(html_b519c3cab841813d077f981fda77e7f0);
+            
+        
+
+        marker_ea57f501c2f11581363ada47bde276b3.bindPopup(popup_04ef9718d1b9988e209b2795f221e063)
+        ;
+
+        
+    
+    
+            var marker_4a10a5a20f4c9f6284522b02b17ebf42 = L.marker(
+                [46.7985624, 8.2319736],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_5da8ff1b3b8d4d43bd42eb373392e439 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4a10a5a20f4c9f6284522b02b17ebf42.setIcon(icon_5da8ff1b3b8d4d43bd42eb373392e439);
+        
+    
+        var popup_a98d6dd87342c38f9f25aa83d9c2477c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8c1ab17279bef2733f44e17fae73c080 = $(`<div id="html_8c1ab17279bef2733f44e17fae73c080" style="width: 100.0%; height: 100.0%;">Switzerland - Sentiment: POSITIVE</div>`)[0];
+                popup_a98d6dd87342c38f9f25aa83d9c2477c.setContent(html_8c1ab17279bef2733f44e17fae73c080);
+            
+        
+
+        marker_4a10a5a20f4c9f6284522b02b17ebf42.bindPopup(popup_a98d6dd87342c38f9f25aa83d9c2477c)
+        ;
+
+        
+    
+    
+            var marker_c3c1a448806e0354f04a689450f82d2f = L.marker(
+                [41.8933203, 12.4829321],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_6ba8534328b531db8097f06f08ffa885 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_c3c1a448806e0354f04a689450f82d2f.setIcon(icon_6ba8534328b531db8097f06f08ffa885);
+        
+    
+        var popup_3bf9cbdef6cc711fb0e8e048b88be679 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5e44d69ca3381f906f0a69dd4e9f2030 = $(`<div id="html_5e44d69ca3381f906f0a69dd4e9f2030" style="width: 100.0%; height: 100.0%;">Rome, Lazio, Italy - Sentiment: POSITIVE</div>`)[0];
+                popup_3bf9cbdef6cc711fb0e8e048b88be679.setContent(html_5e44d69ca3381f906f0a69dd4e9f2030);
+            
+        
+
+        marker_c3c1a448806e0354f04a689450f82d2f.bindPopup(popup_3bf9cbdef6cc711fb0e8e048b88be679)
+        ;
+
+        
+    
+    
+            var marker_258d204f5d78c7f295c528b654ef5e84 = L.marker(
+                [41.8933203, 12.4829321],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_da942a374374d81b5e4e4611e30e823d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_258d204f5d78c7f295c528b654ef5e84.setIcon(icon_da942a374374d81b5e4e4611e30e823d);
+        
+    
+        var popup_3977ae3ece757502dee2107c055b5284 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8769cc31eee95a2fda970c259477a82b = $(`<div id="html_8769cc31eee95a2fda970c259477a82b" style="width: 100.0%; height: 100.0%;">Rome, Lazio, Italy - Sentiment: POSITIVE</div>`)[0];
+                popup_3977ae3ece757502dee2107c055b5284.setContent(html_8769cc31eee95a2fda970c259477a82b);
+            
+        
+
+        marker_258d204f5d78c7f295c528b654ef5e84.bindPopup(popup_3977ae3ece757502dee2107c055b5284)
+        ;
+
+        
+    
+    
+            var marker_7b980637414ee1e0709c7f3da75bed0d = L.marker(
+                [48.1371079, 11.5753822],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_608b7d8d90b6b17b4f1718fec4c05a6d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_7b980637414ee1e0709c7f3da75bed0d.setIcon(icon_608b7d8d90b6b17b4f1718fec4c05a6d);
+        
+    
+        var popup_26e849a9d1e3ab98448fe8813bc01151 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_de98cf2d2757a93ef16624b8d829e5f2 = $(`<div id="html_de98cf2d2757a93ef16624b8d829e5f2" style="width: 100.0%; height: 100.0%;">Munich, Bayern, Germany - Sentiment: POSITIVE</div>`)[0];
+                popup_26e849a9d1e3ab98448fe8813bc01151.setContent(html_de98cf2d2757a93ef16624b8d829e5f2);
+            
+        
+
+        marker_7b980637414ee1e0709c7f3da75bed0d.bindPopup(popup_26e849a9d1e3ab98448fe8813bc01151)
+        ;
+
+        
+    
+    
+            var marker_3f99f26ffc1cf883b6429f28b2709ce0 = L.marker(
+                [28.6517178, 77.2219388],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_0be903441aea4f0ca20fa38963263d21 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_3f99f26ffc1cf883b6429f28b2709ce0.setIcon(icon_0be903441aea4f0ca20fa38963263d21);
+        
+    
+        var popup_41637248b2fbb03226e5263f00f7c9cc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_43f4891fa29a40c770ab3d0f2ef870cf = $(`<div id="html_43f4891fa29a40c770ab3d0f2ef870cf" style="width: 100.0%; height: 100.0%;">Delhi, Delhi, India - Sentiment: POSITIVE</div>`)[0];
+                popup_41637248b2fbb03226e5263f00f7c9cc.setContent(html_43f4891fa29a40c770ab3d0f2ef870cf);
+            
+        
+
+        marker_3f99f26ffc1cf883b6429f28b2709ce0.bindPopup(popup_41637248b2fbb03226e5263f00f7c9cc)
+        ;
+
+        
+    
+    
+            var marker_b6dd0447c6b6f50de87b2dadd15cf4fa = L.marker(
+                [28.6517178, 77.2219388],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_9e734fbb3d05bbf6dade35c71168f613 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b6dd0447c6b6f50de87b2dadd15cf4fa.setIcon(icon_9e734fbb3d05bbf6dade35c71168f613);
+        
+    
+        var popup_21a74c44964c85dde7651a43895097e8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_44efb02897873157d91cec686933546b = $(`<div id="html_44efb02897873157d91cec686933546b" style="width: 100.0%; height: 100.0%;">Delhi, Delhi, India - Sentiment: POSITIVE</div>`)[0];
+                popup_21a74c44964c85dde7651a43895097e8.setContent(html_44efb02897873157d91cec686933546b);
+            
+        
+
+        marker_b6dd0447c6b6f50de87b2dadd15cf4fa.bindPopup(popup_21a74c44964c85dde7651a43895097e8)
+        ;
+
+        
+    
+    
+            var marker_328b2f8c0cb7f74277268e896b5adbdc = L.marker(
+                [39.7837304, -100.445882],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_6bdab121836361f6c8cf3d6c6e27e4d0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_328b2f8c0cb7f74277268e896b5adbdc.setIcon(icon_6bdab121836361f6c8cf3d6c6e27e4d0);
+        
+    
+        var popup_c386552797182ff1897c39aa9cd21aaf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2373b99c6d6399d2420ded98d73490b6 = $(`<div id="html_2373b99c6d6399d2420ded98d73490b6" style="width: 100.0%; height: 100.0%;">United States - Sentiment: POSITIVE</div>`)[0];
+                popup_c386552797182ff1897c39aa9cd21aaf.setContent(html_2373b99c6d6399d2420ded98d73490b6);
+            
+        
+
+        marker_328b2f8c0cb7f74277268e896b5adbdc.bindPopup(popup_c386552797182ff1897c39aa9cd21aaf)
+        ;
+
+        
+    
+    
+            var marker_779d7758a40f591be921a15454013e5d = L.marker(
+                [51.5118606, -0.0780174],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_1f7c22a87ec2b89461524ad82113456e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_779d7758a40f591be921a15454013e5d.setIcon(icon_1f7c22a87ec2b89461524ad82113456e);
+        
+    
+        var popup_e6536be8ffcc3bfb6c31c99747918fd6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1f89457f8609831532de8b2620e3b205 = $(`<div id="html_1f89457f8609831532de8b2620e3b205" style="width: 100.0%; height: 100.0%;">London, London, City of, United Kingdom - Sentiment: POSITIVE</div>`)[0];
+                popup_e6536be8ffcc3bfb6c31c99747918fd6.setContent(html_1f89457f8609831532de8b2620e3b205);
+            
+        
+
+        marker_779d7758a40f591be921a15454013e5d.bindPopup(popup_e6536be8ffcc3bfb6c31c99747918fd6)
+        ;
+
+        
+    
+    
+            var marker_c6a02b9c8347d45dc0981181b89cbd70 = L.marker(
+                [-6.1166622, 106.7786307],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_d1944b50021e340af0555e6d2c7c0cba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_c6a02b9c8347d45dc0981181b89cbd70.setIcon(icon_d1944b50021e340af0555e6d2c7c0cba);
+        
+    
+        var popup_77cfb6d6c6e99e80cd51d56d1e892fc4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe0d77250066767b360b9babcc863f74 = $(`<div id="html_fe0d77250066767b360b9babcc863f74" style="width: 100.0%; height: 100.0%;">Jakarta, Jakarta Raya, Indonesia - Sentiment: POSITIVE</div>`)[0];
+                popup_77cfb6d6c6e99e80cd51d56d1e892fc4.setContent(html_fe0d77250066767b360b9babcc863f74);
+            
+        
+
+        marker_c6a02b9c8347d45dc0981181b89cbd70.bindPopup(popup_77cfb6d6c6e99e80cd51d56d1e892fc4)
+        ;
+
+        
+    
+    
+            var marker_e4e5c644e2edb91826d5b90a9b3a1cdb = L.marker(
+                [51.5118606, -0.0780174],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_460b8998888ae177a31bca8c3a97f350 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e4e5c644e2edb91826d5b90a9b3a1cdb.setIcon(icon_460b8998888ae177a31bca8c3a97f350);
+        
+    
+        var popup_460b1556a0f2677c9f10d6557aeaaa35 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_247cd84aef32957824f88735b4a3eb6a = $(`<div id="html_247cd84aef32957824f88735b4a3eb6a" style="width: 100.0%; height: 100.0%;">London, London, City of, United Kingdom - Sentiment: POSITIVE</div>`)[0];
+                popup_460b1556a0f2677c9f10d6557aeaaa35.setContent(html_247cd84aef32957824f88735b4a3eb6a);
+            
+        
+
+        marker_e4e5c644e2edb91826d5b90a9b3a1cdb.bindPopup(popup_460b1556a0f2677c9f10d6557aeaaa35)
+        ;
+
+        
+    
+    
+            var marker_f5590f68b3d8713aca5eb13061cdab7f = L.marker(
+                [55.7505412, 37.6174782],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_a5149191e8bdcdf436db3ff17cab3e0a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_f5590f68b3d8713aca5eb13061cdab7f.setIcon(icon_a5149191e8bdcdf436db3ff17cab3e0a);
+        
+    
+        var popup_361e2f2ad1b410234548196eaff7a32f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_647dc9c35d4624ff09191b549aa3fd51 = $(`<div id="html_647dc9c35d4624ff09191b549aa3fd51" style="width: 100.0%; height: 100.0%;">Moscow, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_361e2f2ad1b410234548196eaff7a32f.setContent(html_647dc9c35d4624ff09191b549aa3fd51);
+            
+        
+
+        marker_f5590f68b3d8713aca5eb13061cdab7f.bindPopup(popup_361e2f2ad1b410234548196eaff7a32f)
+        ;
+
+        
+    
+    
+            var marker_6a2533f59613862178dfe9ef94c1d720 = L.marker(
+                [55.7516212, 37.618122044334896],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_e332828b917eb9cdeaafbd122a45aa79 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6a2533f59613862178dfe9ef94c1d720.setIcon(icon_e332828b917eb9cdeaafbd122a45aa79);
+        
+    
+        var popup_33545e59c93587ebb747ce0456dd3a83 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fb03c75dbd1fb1026e34c10e0da3760e = $(`<div id="html_fb03c75dbd1fb1026e34c10e0da3760e" style="width: 100.0%; height: 100.0%;">Kremlin, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_33545e59c93587ebb747ce0456dd3a83.setContent(html_fb03c75dbd1fb1026e34c10e0da3760e);
+            
+        
+
+        marker_6a2533f59613862178dfe9ef94c1d720.bindPopup(popup_33545e59c93587ebb747ce0456dd3a83)
+        ;
+
+        
+    
+    
+            var marker_f105a7c64814c7e0e96b377d260414c0 = L.marker(
+                [55.7516212, 37.618122044334896],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_3a9e4e109eba015eb845568a2551397c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_f105a7c64814c7e0e96b377d260414c0.setIcon(icon_3a9e4e109eba015eb845568a2551397c);
+        
+    
+        var popup_b0a6750d0e0b10e5666e3a567463a1ad = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fa0da4444833ab3522e934f60c5973e9 = $(`<div id="html_fa0da4444833ab3522e934f60c5973e9" style="width: 100.0%; height: 100.0%;">Kremlin, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_b0a6750d0e0b10e5666e3a567463a1ad.setContent(html_fa0da4444833ab3522e934f60c5973e9);
+            
+        
+
+        marker_f105a7c64814c7e0e96b377d260414c0.bindPopup(popup_b0a6750d0e0b10e5666e3a567463a1ad)
+        ;
+
+        
+    
+    
+            var marker_5719612c89a3ed731bbc4b04cfabb87c = L.marker(
+                [55.7505412, 37.6174782],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_107aab33789c3d04ebcb31389e7f3211 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5719612c89a3ed731bbc4b04cfabb87c.setIcon(icon_107aab33789c3d04ebcb31389e7f3211);
+        
+    
+        var popup_ea5e55b8eca89ceac116a0ee54cb1846 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_652bf2ff64060b09b4611be5798a6b26 = $(`<div id="html_652bf2ff64060b09b4611be5798a6b26" style="width: 100.0%; height: 100.0%;">Moscow, Moskva, Russia - Sentiment: POSITIVE</div>`)[0];
+                popup_ea5e55b8eca89ceac116a0ee54cb1846.setContent(html_652bf2ff64060b09b4611be5798a6b26);
+            
+        
+
+        marker_5719612c89a3ed731bbc4b04cfabb87c.bindPopup(popup_ea5e55b8eca89ceac116a0ee54cb1846)
+        ;
+
+        
+    
+    
+            var marker_8e522d91b2bda7c9aa37d15778c33844 = L.marker(
+                [42.6935092, 23.335316870417927],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_225b92f6f906c9aed45c69e2f49263b9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8e522d91b2bda7c9aa37d15778c33844.setIcon(icon_225b92f6f906c9aed45c69e2f49263b9);
+        
+    
+        var popup_7cbcc53655e6e36f975896f0deb7057d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6c54a1cb125d927450a92c0b77f4063a = $(`<div id="html_6c54a1cb125d927450a92c0b77f4063a" style="width: 100.0%; height: 100.0%;">Sofia, Sofiya-Grad, Bulgaria - Sentiment: POSITIVE</div>`)[0];
+                popup_7cbcc53655e6e36f975896f0deb7057d.setContent(html_6c54a1cb125d927450a92c0b77f4063a);
+            
+        
+
+        marker_8e522d91b2bda7c9aa37d15778c33844.bindPopup(popup_7cbcc53655e6e36f975896f0deb7057d)
+        ;
+
+        
+    
+    
+            var marker_598bdaa06e0b3debf2956957ca174a3e = L.marker(
+                [42.6935092, 23.335316870417927],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_cf6d0ec997660fb4212aab595fca9cd4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_598bdaa06e0b3debf2956957ca174a3e.setIcon(icon_cf6d0ec997660fb4212aab595fca9cd4);
+        
+    
+        var popup_373746d234a2757b99fb831ebf617e08 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dfda0de42d1e6e9c9833fb7fb8fce984 = $(`<div id="html_dfda0de42d1e6e9c9833fb7fb8fce984" style="width: 100.0%; height: 100.0%;">Sofia, Sofiya-Grad, Bulgaria - Sentiment: POSITIVE</div>`)[0];
+                popup_373746d234a2757b99fb831ebf617e08.setContent(html_dfda0de42d1e6e9c9833fb7fb8fce984);
+            
+        
+
+        marker_598bdaa06e0b3debf2956957ca174a3e.bindPopup(popup_373746d234a2757b99fb831ebf617e08)
+        ;
+
+        
+    
+    
+            var marker_d2f01a33081af35073023f81994b9730 = L.marker(
+                [5.7587654, -73.9151617],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_193183667c110f039f0ad5d1aef4e581 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_d2f01a33081af35073023f81994b9730.setIcon(icon_193183667c110f039f0ad5d1aef4e581);
+        
+    
+        var popup_ffcca2d5489525f932dde7d59b467ecd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c5becf7132352dd24dd479e0bea60294 = $(`<div id="html_c5becf7132352dd24dd479e0bea60294" style="width: 100.0%; height: 100.0%;">Albania - Sentiment: POSITIVE</div>`)[0];
+                popup_ffcca2d5489525f932dde7d59b467ecd.setContent(html_c5becf7132352dd24dd479e0bea60294);
+            
+        
+
+        marker_d2f01a33081af35073023f81994b9730.bindPopup(popup_ffcca2d5489525f932dde7d59b467ecd)
+        ;
+
+        
+    
+    
+            var marker_a7749f022a87e74bd8aff8b0cced9965 = L.marker(
+                [5.7587654, -73.9151617],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_1a6f5b85d11c722981fd613697db1bda = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a7749f022a87e74bd8aff8b0cced9965.setIcon(icon_1a6f5b85d11c722981fd613697db1bda);
+        
+    
+        var popup_466168044461826a64b39fd90229ec18 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_204878d493ee2ae510b79e79eb9344c2 = $(`<div id="html_204878d493ee2ae510b79e79eb9344c2" style="width: 100.0%; height: 100.0%;">Albania - Sentiment: POSITIVE</div>`)[0];
+                popup_466168044461826a64b39fd90229ec18.setContent(html_204878d493ee2ae510b79e79eb9344c2);
+            
+        
+
+        marker_a7749f022a87e74bd8aff8b0cced9965.bindPopup(popup_466168044461826a64b39fd90229ec18)
+        ;
+
+        
+    
+    
+            var marker_6ceccfc61ce48ef82b7faa2ce5b9edba = L.marker(
+                [-24.7761086, 134.755],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_fd9f7763dfd227463df4273c961100dc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6ceccfc61ce48ef82b7faa2ce5b9edba.setIcon(icon_fd9f7763dfd227463df4273c961100dc);
+        
+    
+        var popup_2534fdfdb2dd7427c524d762be8d11b6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cfbf452f1da7262ce92396c31aed8ab1 = $(`<div id="html_cfbf452f1da7262ce92396c31aed8ab1" style="width: 100.0%; height: 100.0%;">Australia - Sentiment: POSITIVE</div>`)[0];
+                popup_2534fdfdb2dd7427c524d762be8d11b6.setContent(html_cfbf452f1da7262ce92396c31aed8ab1);
+            
+        
+
+        marker_6ceccfc61ce48ef82b7faa2ce5b9edba.bindPopup(popup_2534fdfdb2dd7427c524d762be8d11b6)
+        ;
+
+        
+    
+    
+            var marker_9312e0511f563f77658d0f42746dab84 = L.marker(
+                [35.0000663, 104.999955],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_c19e70316253cd6cd675bee31edf9c0f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9312e0511f563f77658d0f42746dab84.setIcon(icon_c19e70316253cd6cd675bee31edf9c0f);
+        
+    
+        var popup_0fd781716419a1c89abd1ba07d1f6dc5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f6a04af9aaad66151e11044ff9c4fd30 = $(`<div id="html_f6a04af9aaad66151e11044ff9c4fd30" style="width: 100.0%; height: 100.0%;">China - Sentiment: POSITIVE</div>`)[0];
+                popup_0fd781716419a1c89abd1ba07d1f6dc5.setContent(html_f6a04af9aaad66151e11044ff9c4fd30);
+            
+        
+
+        marker_9312e0511f563f77658d0f42746dab84.bindPopup(popup_0fd781716419a1c89abd1ba07d1f6dc5)
+        ;
+
+        
+    
+    
+            var marker_047cff2c3edfb42db28a322ed774cd39 = L.marker(
+                [35.0000663, 104.999955],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_0aa9ab94738305a419479b2032228295 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_047cff2c3edfb42db28a322ed774cd39.setIcon(icon_0aa9ab94738305a419479b2032228295);
+        
+    
+        var popup_1dd0652d584ac5218dd955d359f1a64c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_263698b1bf84ee6abbb29e143e4b1f9f = $(`<div id="html_263698b1bf84ee6abbb29e143e4b1f9f" style="width: 100.0%; height: 100.0%;">China - Sentiment: POSITIVE</div>`)[0];
+                popup_1dd0652d584ac5218dd955d359f1a64c.setContent(html_263698b1bf84ee6abbb29e143e4b1f9f);
+            
+        
+
+        marker_047cff2c3edfb42db28a322ed774cd39.bindPopup(popup_1dd0652d584ac5218dd955d359f1a64c)
+        ;
+
+        
+    
+    
+            var marker_1c3398a74a0aa7690534b072333ff7ed = L.marker(
+                [46.603354, 1.8883335],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_bcc27ce9ee709dbd6c2dd4048c8d8fb2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_1c3398a74a0aa7690534b072333ff7ed.setIcon(icon_bcc27ce9ee709dbd6c2dd4048c8d8fb2);
+        
+    
+        var popup_fbcc9f9431c59c54ddaf142488c0ee98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fa6536d69fd826b4b50e814ee31662d8 = $(`<div id="html_fa6536d69fd826b4b50e814ee31662d8" style="width: 100.0%; height: 100.0%;">France - Sentiment: POSITIVE</div>`)[0];
+                popup_fbcc9f9431c59c54ddaf142488c0ee98.setContent(html_fa6536d69fd826b4b50e814ee31662d8);
+            
+        
+
+        marker_1c3398a74a0aa7690534b072333ff7ed.bindPopup(popup_fbcc9f9431c59c54ddaf142488c0ee98)
+        ;
+
+        
+    
+    
+            var marker_542699998c8d6b2a405d89478967ad66 = L.marker(
+                [31.39480005, 34.63358319049945],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_6a7207f2817f04976199fd0d13e76c5c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_542699998c8d6b2a405d89478967ad66.setIcon(icon_6a7207f2817f04976199fd0d13e76c5c);
+        
+    
+        var popup_b1075c7a29cc5f9b2d3261ca2bed1076 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f2a7a38e88b789c8c524d6e242e81d1b = $(`<div id="html_f2a7a38e88b789c8c524d6e242e81d1b" style="width: 100.0%; height: 100.0%;">Israel - Sentiment: POSITIVE</div>`)[0];
+                popup_b1075c7a29cc5f9b2d3261ca2bed1076.setContent(html_f2a7a38e88b789c8c524d6e242e81d1b);
+            
+        
+
+        marker_542699998c8d6b2a405d89478967ad66.bindPopup(popup_b1075c7a29cc5f9b2d3261ca2bed1076)
+        ;
+
+        
+    
+    
+            var marker_252b90503416b54177564c408d0e61e7 = L.marker(
+                [51.1638175, 10.4478313],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_e14b52e389da7c00d10d8b31c1d10bb4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_252b90503416b54177564c408d0e61e7.setIcon(icon_e14b52e389da7c00d10d8b31c1d10bb4);
+        
+    
+        var popup_28fdf283f43e57d78f05fe20802117e3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e139fd8bd65182e1387f3a253ec0a738 = $(`<div id="html_e139fd8bd65182e1387f3a253ec0a738" style="width: 100.0%; height: 100.0%;">Germany - Sentiment: POSITIVE</div>`)[0];
+                popup_28fdf283f43e57d78f05fe20802117e3.setContent(html_e139fd8bd65182e1387f3a253ec0a738);
+            
+        
+
+        marker_252b90503416b54177564c408d0e61e7.bindPopup(popup_28fdf283f43e57d78f05fe20802117e3)
+        ;
+
+        
+    
+    
+            var marker_3003c65b0c1e62210952c6b4f36d174b = L.marker(
+                [40.7127281, -74.0060152],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_e6bb760778d504714575b44009ceec1e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_3003c65b0c1e62210952c6b4f36d174b.setIcon(icon_e6bb760778d504714575b44009ceec1e);
+        
+    
+        var popup_5ff3d2c549e17556d6690a8a7082a7c9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dadf2ff042c5f166d6673138c73890bc = $(`<div id="html_dadf2ff042c5f166d6673138c73890bc" style="width: 100.0%; height: 100.0%;">New York, United States - Sentiment: POSITIVE</div>`)[0];
+                popup_5ff3d2c549e17556d6690a8a7082a7c9.setContent(html_dadf2ff042c5f166d6673138c73890bc);
+            
+        
+
+        marker_3003c65b0c1e62210952c6b4f36d174b.bindPopup(popup_5ff3d2c549e17556d6690a8a7082a7c9)
+        ;
+
+        
+    
+    
+            var marker_a4c32c9b1320186c0e8d4c760b190880 = L.marker(
+                [41.3281482, 19.8184435],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_65e1c83a3facdb3129b15330206faf25 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a4c32c9b1320186c0e8d4c760b190880.setIcon(icon_65e1c83a3facdb3129b15330206faf25);
+        
+    
+        var popup_21f4846d5fca92ebbf42aa5f669f7f51 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1a4e556bc700a5cdafb6b22e91c17089 = $(`<div id="html_1a4e556bc700a5cdafb6b22e91c17089" style="width: 100.0%; height: 100.0%;">Tirana, Tirane, Albania - Sentiment: POSITIVE</div>`)[0];
+                popup_21f4846d5fca92ebbf42aa5f669f7f51.setContent(html_1a4e556bc700a5cdafb6b22e91c17089);
+            
+        
+
+        marker_a4c32c9b1320186c0e8d4c760b190880.bindPopup(popup_21f4846d5fca92ebbf42aa5f669f7f51)
+        ;
+
+        
+    
+    
+            var marker_71942746ce733b1fb9b7ac1d300ff8e8 = L.marker(
+                [33.7680065, 66.2385139],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_9c2ef366a298a0b10b7077404736f71e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_71942746ce733b1fb9b7ac1d300ff8e8.setIcon(icon_9c2ef366a298a0b10b7077404736f71e);
+        
+    
+        var popup_8019626a24e964a5d5671128c11d7d1b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ed171e3fed60bec625bd277f9a3322d7 = $(`<div id="html_ed171e3fed60bec625bd277f9a3322d7" style="width: 100.0%; height: 100.0%;">Afghanistan - Sentiment: POSITIVE</div>`)[0];
+                popup_8019626a24e964a5d5671128c11d7d1b.setContent(html_ed171e3fed60bec625bd277f9a3322d7);
+            
+        
+
+        marker_71942746ce733b1fb9b7ac1d300ff8e8.bindPopup(popup_8019626a24e964a5d5671128c11d7d1b)
+        ;
+
+        
+    
+    
+            var marker_09cc8955ad51d4258d08ef074773f5fe = L.marker(
+                [-23.2335499, 17.3231107],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_ae11cf7be4aca70714906c77efd64d60 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_09cc8955ad51d4258d08ef074773f5fe.setIcon(icon_ae11cf7be4aca70714906c77efd64d60);
+        
+    
+        var popup_b5d6a7b698034645502dff065bbe4c00 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1b076f816ea91a3b7182f64c1a415e7b = $(`<div id="html_1b076f816ea91a3b7182f64c1a415e7b" style="width: 100.0%; height: 100.0%;">Namibia - Sentiment: POSITIVE</div>`)[0];
+                popup_b5d6a7b698034645502dff065bbe4c00.setContent(html_1b076f816ea91a3b7182f64c1a415e7b);
+            
+        
+
+        marker_09cc8955ad51d4258d08ef074773f5fe.bindPopup(popup_b5d6a7b698034645502dff065bbe4c00)
+        ;
+
+        
+    
+    
+            var marker_38d3031fe7e940b6a1d6a661c6f85032 = L.marker(
+                [15.6870911, -92.1014402],
+                {
+}
+            ).addTo(map_897599f19c018cd6414c0e3f70e57165);
+        
+    
+            var icon_02c29920ab9ed69968acefec4675de2a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_38d3031fe7e940b6a1d6a661c6f85032.setIcon(icon_02c29920ab9ed69968acefec4675de2a);
+        
+    
+        var popup_2efbde64d7d38f7e16dc886643c80194 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f59bf191cec4dc68a6dd062963036818 = $(`<div id="html_f59bf191cec4dc68a6dd062963036818" style="width: 100.0%; height: 100.0%;">Nuevo Mexico, Chiapas, Mexico - Sentiment: POSITIVE</div>`)[0];
+                popup_2efbde64d7d38f7e16dc886643c80194.setContent(html_f59bf191cec4dc68a6dd062963036818);
+            
+        
+
+        marker_38d3031fe7e940b6a1d6a661c6f85032.bindPopup(popup_2efbde64d7d38f7e16dc886643c80194)
+        ;
+
+        
+    
+</script>
+</html>

@@ -36,7 +36,7 @@ sentiment_counts = df["sentiment_transformers"].value_counts()
 
 # ✅ Plot sentiment distribution
 plt.figure(figsize=(8, 5))
-sns.barplot(x=sentiment_counts.index, y=sentiment_counts.values, palette="coolwarm")
+sns.barplot(x=sentiment_counts.index, y=sentiment_counts.values, hue=sentiment_counts.index, palette="coolwarm", legend=False)
 plt.xlabel("Sentiment Category")
 plt.ylabel("Count")
 plt.title("Distribution of Sentiment in Conflict Data")
