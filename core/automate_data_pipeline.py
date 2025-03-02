@@ -3,10 +3,9 @@ import os
 import time
 import schedule
 
-# Ensure the `scripts` directory is included in the import path
+# ✅ Ensure scripts directory is in Python path
 sys.path.append(os.path.abspath("scripts"))
 
-# Corrected imports from the `scripts` module
 from bigquery_client import fetch_and_store_gdelt
 from nlp_pipeline import run_nlp_processing
 from store_gdelt_news import store_nlp_results
@@ -34,12 +33,11 @@ def run_pipeline():
     except Exception as e:
         print(f"\n❌ Pipeline failed: {e}")
 
-# Schedule the pipeline to run every 6 hours
+# ✅ Run pipeline every 6 hours
 schedule.every(6).hours.do(run_pipeline)
 
 print("\n⏳ Automation running... Press Ctrl+C to stop.\n")
 
-# Keep the script running indefinitely
 while True:
     schedule.run_pending()
     time.sleep(60)
