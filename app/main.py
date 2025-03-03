@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # Optional: Enable CORS for frontend access
 
 # ✅ Import API routes
-from app.api_routes import gdelt_routes, nlp_routes, data_routes
+from app.api_routes import gdelt_routes, nlp_routes, data_routes, sgm_routes
 
 # ✅ Initialize FastAPI app
 app = FastAPI(
@@ -30,6 +30,7 @@ app.add_middleware(
 app.include_router(gdelt_routes.router, prefix="/gdelt", tags=["GDELT"])
 app.include_router(nlp_routes.router, prefix="/nlp", tags=["NLP"])
 app.include_router(data_routes.router, prefix="/data", tags=["Data"])
+app.include_router(sgm_routes.router, prefix="/sgm", tags=["SGM"])
 
 # ✅ Root endpoint
 @app.get("/")

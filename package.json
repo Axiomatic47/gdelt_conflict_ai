@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "i18n-iso-countries": "^7.14.0",
+    "leaflet": "^1.9.4"
+  }
+}
