@@ -1,139 +1,236 @@
-#!/usr/bin/env python3
-"""
-SGM API Routes - Simplified for GDELT integration
-"""
-
-from fastapi import APIRouter, HTTPException
-from pymongo import MongoClient
-from typing import List, Dict, Any
-from datetime import datetime
+from fastapi import APIRouter, HTTPException, BackgroundTasks
+from pydantic import BaseModel
+from typing import List, Dict, Any, Optional
+import uuid
+import sys
 import os
-from dotenv import load_dotenv
+import logging
 
-# Load environment variables
-load_dotenv()
-MONGO_URI = os.getenv("MONGODB_URI")
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Initialize router
+# Import your existing SGM data service
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+try:
+    from core.sgm_data_service import get_country_sgm_data, get_country_detail, run_sgm_analysis
+except ImportError:
+    logger.warning("Could not import SGM core functions. Either implement them or use placeholders.")
+
+
+    # Placeholder functions if imports fail
+    def get_country_sgm_data():
+        return []
+
+
+    def get_country_detail(country_code):
+        return None
+
+
+    def run_sgm_analysis():
+        return True
+
+# Create router
 router = APIRouter()
 
-# Connect to MongoDB
-try:
-    mongo_client = MongoClient(MONGO_URI)
-    db = mongo_client["gdelt_db"]
-    sgm_collection = db["sgm_scores"]
-except Exception as e:
-    print(f"Warning: MongoDB connection failed: {str(e)}")
-    mongo_client = None
+
+# Pydantic models for request/response validation
+class CountryData(BaseModel):
+    code: str
+    country: str
+    sgm: float
+    gscs: Optional[float] = None
+    srsD: Optional[float] = None
+    srsI: Optional[float] = None
+    latitude: float
+    longitude: float
+    sti: Optional[float] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+    event_count: Optional[int] = None
+    avg_tone: Optional[float] = None
+    updated_at: Optional[str] = None
 
 
-@router.get("/countries", summary="Get all countries with SGM scores")
-async def get_countries():
-    """Get SGM scores for all countries"""
-    if not mongo_client:
-        # Return mock data if MongoDB is not available
-        return [
+class RegionalData(BaseModel):
+    region: str
+    avg_sgm: float
+    countries: int
+    highest_country: str
+    highest_sgm: float
+    lowest_country: str
+    lowest_sgm: float
+
+
+class AnalysisResponse(BaseModel):
+    jobId: str
+    status: str
+
+
+class AnalysisStatusResponse(BaseModel):
+    jobId: str
+    status: str
+    progress: Optional[float] = None
+    message: Optional[str] = None
+
+
+# Background task for running analysis
+def run_analysis_task(job_id: str):
+    try:
+        # Call your existing analysis function
+        logger.info(f"Starting analysis job {job_id}")
+        run_sgm_analysis()
+        logger.info(f"Completed analysis job {job_id}")
+    except Exception as e:
+        logger.error(f"Error in analysis job {job_id}: {str(e)}")
+
+
+# Dictionary to store job status (replace with database in production)
+analysis_jobs = {}
+
+
+@router.get("/countries", response_model=List[CountryData])
+async def get_all_countries():
+    """
+    Get SGM data for all countries
+    """
+    try:
+        # Call your existing function to get country data
+        countries = get_country_sgm_data()
+        logger.info(f"Retrieved SGM data for {len(countries)} countries")
+        return countries
+    except Exception as e:
+        logger.error(f"Error fetching country data: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/countries/{country_code}", response_model=CountryData)
+async def get_country(country_code: str):
+    """
+    Get detailed data for a specific country
+    """
+    try:
+        # Call your existing function to get country detail
+        country = get_country_detail(country_code)
+        if not country:
+            logger.warning(f"Country {country_code} not found")
+            raise HTTPException(status_code=404, detail=f"Country {country_code} not found")
+        logger.info(f"Retrieved SGM data for country {country_code}")
+        return country
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching country {country_code}: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/run-analysis", response_model=AnalysisResponse)
+async def trigger_analysis(background_tasks: BackgroundTasks):
+    """
+    Trigger a new SGM analysis run
+    """
+    try:
+        job_id = str(uuid.uuid4())
+        background_tasks.add_task(run_analysis_task, job_id)
+
+        # Store job status
+        analysis_jobs[job_id] = {
+            "status": "started",
+            "progress": 0.0,
+            "message": "Analysis started"
+        }
+
+        logger.info(f"Started analysis job {job_id}")
+        return {"jobId": job_id, "status": "started"}
+    except Exception as e:
+        logger.error(f"Error starting analysis: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/analysis-status/{job_id}", response_model=AnalysisStatusResponse)
+async def get_analysis_status(job_id: str):
+    """
+    Get the status of an analysis job
+    """
+    try:
+        if job_id not in analysis_jobs:
+            raise HTTPException(status_code=404, detail=f"Analysis job {job_id} not found")
+
+        job_status = analysis_jobs[job_id]
+        logger.info(f"Retrieved status for analysis job {job_id}: {job_status['status']}")
+
+        return {
+            "jobId": job_id,
+            "status": job_status["status"],
+            "progress": job_status.get("progress"),
+            "message": job_status.get("message")
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting analysis status: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/regions", response_model=List[RegionalData])
+async def get_regions():
+    """
+    Get regional summary data
+    """
+    try:
+        # This would call your function that aggregates country data by region
+        # You would need to implement this in your core SGM service
+        # For now, we'll return a placeholder
+        regions = [
             {
-                "country": "United States",
-                "code": "US",
-                "srsD": 4.2,
-                "srsI": 6.7,
-                "gscs": 5.2,
-                "sti": 45,
-                "category": "Soft Supremacism",
-                "description": "United States exhibits soft supremacism with institutional inequalities despite formal legal equality."
+                "region": "North America",
+                "avg_sgm": 4.8,
+                "countries": 3,
+                "highest_country": "United States",
+                "highest_sgm": 5.2,
+                "lowest_country": "Canada",
+                "lowest_sgm": 2.8
             },
             {
-                "country": "China",
-                "code": "CN",
-                "srsD": 7.1,
-                "srsI": 6.8,
-                "gscs": 7.0,
-                "sti": 75,
-                "category": "Structural Supremacism",
-                "description": "China demonstrates structural supremacism with notable inequalities at societal and governmental levels."
+                "region": "Europe",
+                "avg_sgm": 3.2,
+                "countries": 5,
+                "highest_country": "Russia",
+                "highest_sgm": 7.3,
+                "lowest_country": "Sweden",
+                "lowest_sgm": 1.7
             },
             {
-                "country": "Russia",
-                "code": "RU",
-                "srsD": 6.9,
-                "srsI": 7.8,
-                "gscs": 7.3,
-                "sti": 80,
-                "category": "Structural Supremacism",
-                "description": "Russia demonstrates structural supremacism with notable inequalities at societal and governmental levels."
+                "region": "Asia",
+                "avg_sgm": 6.1,
+                "countries": 6,
+                "highest_country": "China",
+                "highest_sgm": 7.0,
+                "lowest_country": "Japan",
+                "lowest_sgm": 3.6
+            },
+            {
+                "region": "Africa",
+                "avg_sgm": 5.7,
+                "countries": 3,
+                "highest_country": "South Africa",
+                "highest_sgm": 5.9,
+                "lowest_country": "Kenya",
+                "lowest_sgm": 5.1
+            },
+            {
+                "region": "South America",
+                "avg_sgm": 4.5,
+                "countries": 4,
+                "highest_country": "Brazil",
+                "highest_sgm": 4.7,
+                "lowest_country": "Chile",
+                "lowest_sgm": 3.9
             }
         ]
 
-    try:
-        countries = list(sgm_collection.find({}, {"_id": 0}))
-        if not countries:
-            # If no data in database, return mock data
-            return [
-                {
-                    "country": "United States",
-                    "code": "US",
-                    "srsD": 4.2,
-                    "srsI": 6.7,
-                    "gscs": 5.2,
-                    "sti": 45,
-                    "category": "Soft Supremacism",
-                    "description": "United States exhibits soft supremacism with institutional inequalities despite formal legal equality."
-                }
-            ]
-        return countries
+        logger.info(f"Retrieved regional summary data for {len(regions)} regions")
+        return regions
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-
-
-@router.get("/countries/{country_code}", summary="Get SGM scores for a specific country")
-async def get_country(country_code: str):
-    """Get detailed SGM data for a specific country"""
-    if not mongo_client:
-        # Return mock data if MongoDB is not available
-        if country_code.upper() == "US":
-            return {
-                "country": "United States",
-                "code": "US",
-                "srsD": 4.2,
-                "srsI": 6.7,
-                "gscs": 5.2,
-                "sti": 45,
-                "category": "Soft Supremacism",
-                "description": "United States exhibits soft supremacism with institutional inequalities despite formal legal equality."
-            }
-        raise HTTPException(status_code=404, detail=f"Country not found: {country_code}")
-
-    try:
-        country = sgm_collection.find_one({"code": country_code.upper()}, {"_id": 0})
-        if not country:
-            raise HTTPException(status_code=404, detail=f"Country not found: {country_code}")
-        return country
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-
-
-@router.get("/run-analysis", summary="Trigger SGM analysis")
-async def run_analysis():
-    """Trigger a new SGM analysis run"""
-    try:
-        from core.sgm_data_service import SGMService
-        service = SGMService()
-        success = service.run_sgm_analysis()
-
-        if success:
-            return {"status": "success", "message": "SGM analysis completed successfully"}
-        else:
-            return {"status": "error", "message": "SGM analysis encountered issues"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error running SGM analysis: {str(e)}")
-
-
-@router.get("/test", summary="Test endpoint")
-async def test_endpoint():
-    """Test endpoint to verify API is working"""
-    return {
-        "status": "success",
-        "message": "SGM API is operational",
-        "timestamp": datetime.now().isoformat()
-    }
+        logger.error(f"Error fetching regional data: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
