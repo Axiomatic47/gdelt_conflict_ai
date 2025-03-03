@@ -1,18 +1,19 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import sys
 import os
+import logging
 
-# Add appropriate core directories to path to import existing functions
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../core'))
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-router = APIRouter(
-    prefix="/nlp",
-    tags=["nlp-analysis"],
-    responses={404: {"description": "Not found"}},
-)
+# Define router
+router = APIRouter()
 
+
+# Pydantic models for request/response validation
 class NlpAnalysisData(BaseModel):
     country: str
     sentiment_score: float
@@ -20,13 +21,14 @@ class NlpAnalysisData(BaseModel):
     related_countries: List[str]
     entity_analysis: Dict[str, float]
 
+
 @router.get("/results", response_model=List[NlpAnalysisData])
 async def get_nlp_results():
     """
-    Get NLP analysis results
+    Get NLP analysis results from GDELT data
     """
     try:
-        # This would call your function that retrieves NLP analysis results
+        # In a real implementation, this would fetch NLP analysis from a database
         # For now, we'll return placeholder data
         results = [
             {
@@ -50,9 +52,44 @@ async def get_nlp_results():
                     "Economy": 0.38,
                     "Military": 0.10
                 }
+            },
+            {
+                "country": "Russia",
+                "sentiment_score": -0.42,
+                "top_themes": ["MILITARY", "GOVERNMENT", "CONFLICT"],
+                "related_countries": ["United States", "Ukraine", "China"],
+                "entity_analysis": {
+                    "Military": 0.48,
+                    "Government": 0.37,
+                    "Diplomacy": 0.15
+                }
+            },
+            {
+                "country": "Sweden",
+                "sentiment_score": 0.31,
+                "top_themes": ["DIPLOMACY", "HUMAN_RIGHTS", "PEACE"],
+                "related_countries": ["Norway", "Finland", "Denmark"],
+                "entity_analysis": {
+                    "Government": 0.35,
+                    "Society": 0.40,
+                    "Economy": 0.25
+                }
+            },
+            {
+                "country": "India",
+                "sentiment_score": -0.12,
+                "top_themes": ["ECONOMY", "POLITICS", "RELIGION"],
+                "related_countries": ["Pakistan", "China", "United States"],
+                "entity_analysis": {
+                    "Government": 0.42,
+                    "Religion": 0.31,
+                    "Economy": 0.27
+                }
             }
-            # Add more results as needed
         ]
+
+        logger.info(f"Returning {len(results)} NLP analysis results")
         return results
     except Exception as e:
+        logger.error(f"Error fetching NLP results: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))

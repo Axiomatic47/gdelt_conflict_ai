@@ -5,6 +5,8 @@ import uuid
 import sys
 import os
 import logging
+import json
+from datetime import datetime
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -15,15 +17,30 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 try:
     from core.sgm_data_service import get_country_sgm_data, get_country_detail, run_sgm_analysis
 except ImportError:
-    logger.warning("Could not import SGM core functions. Either implement them or use placeholders.")
+    logger.warning("Could not import SGM core functions - using stub implementations")
 
 
-    # Placeholder functions if imports fail
+    # Placeholder/stub functions if imports fail
     def get_country_sgm_data():
-        return []
+        # Read from sample_countries.json if it exists
+        try:
+            with open(os.path.join(os.path.dirname(__file__), "../../data/sample_countries.json"), "r") as f:
+                return json.load(f)
+        except:
+            # Return empty list if file not found
+            return []
 
 
     def get_country_detail(country_code):
+        # Read from sample_countries.json if it exists, then find the matching country
+        try:
+            with open(os.path.join(os.path.dirname(__file__), "../../data/sample_countries.json"), "r") as f:
+                countries = json.load(f)
+                for country in countries:
+                    if country.get("code") == country_code:
+                        return country
+        except:
+            pass
         return None
 
 
@@ -32,6 +49,9 @@ except ImportError:
 
 # Create router
 router = APIRouter()
+
+# Store for analysis jobs (replace with database in production)
+analysis_jobs = {}
 
 
 # Pydantic models for request/response validation
@@ -77,16 +97,48 @@ class AnalysisStatusResponse(BaseModel):
 # Background task for running analysis
 def run_analysis_task(job_id: str):
     try:
-        # Call your existing analysis function
+        # Set initial job state
+        analysis_jobs[job_id] = {
+            "status": "running",
+            "progress": 0.1,
+            "message": "Analysis started"
+        }
+
         logger.info(f"Starting analysis job {job_id}")
-        run_sgm_analysis()
+
+        # Simulate progress updates
+        for progress in [0.25, 0.5, 0.75]:
+            # In a real implementation, this would be async or in a worker
+            import time
+            time.sleep(2)  # Simulate work
+            analysis_jobs[job_id]["progress"] = progress
+            analysis_jobs[job_id]["message"] = f"Processing data ({int(progress * 100)}%)"
+
+        # Call actual analysis function
+        success = run_sgm_analysis()
+
+        # Update job status
+        if success:
+            analysis_jobs[job_id] = {
+                "status": "completed",
+                "progress": 1.0,
+                "message": "Analysis completed successfully"
+            }
+        else:
+            analysis_jobs[job_id] = {
+                "status": "failed",
+                "progress": 1.0,
+                "message": "Analysis failed"
+            }
+
         logger.info(f"Completed analysis job {job_id}")
     except Exception as e:
         logger.error(f"Error in analysis job {job_id}: {str(e)}")
-
-
-# Dictionary to store job status (replace with database in production)
-analysis_jobs = {}
+        analysis_jobs[job_id] = {
+            "status": "failed",
+            "progress": 0,
+            "message": f"Error: {str(e)}"
+        }
 
 
 @router.get("/countries", response_model=List[CountryData])
@@ -179,7 +231,6 @@ async def get_regions():
     """
     try:
         # This would call your function that aggregates country data by region
-        # You would need to implement this in your core SGM service
         # For now, we'll return a placeholder
         regions = [
             {
