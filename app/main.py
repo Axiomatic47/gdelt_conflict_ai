@@ -6,47 +6,51 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api_routes import sgm_routes, gdelt_routes, nlp_routes, data_routes
+
+# Import API routes
+from app.api_routes import sgm_routes
+from app.acled_routes import router as acled_router
+# Import other routes as needed
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="GDELT Conflict Analysis API",
-    description="API for fetching GDELT news, processing NLP data, and retrieving SGM (Supremacism-Governance Methodology) data.",
+    title="GDELT & ACLED Analysis API",
+    description="API for fetching GDELT and ACLED data, processing NLP data, and retrieving conflict event insights.",
     version="1.0.0",
 )
 
-# Enable CORS for frontend requests
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For production, restrict this to your actual frontend domain
+    allow_origins=["*"],  # For development - change to your frontend URL in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include API routers
+# Include API endpoints
 app.include_router(sgm_routes.router, prefix="/sgm", tags=["SGM"])
-app.include_router(gdelt_routes.router, prefix="/gdelt", tags=["GDELT"])
-app.include_router(nlp_routes.router, prefix="/nlp", tags=["NLP"])
-app.include_router(data_routes.router, prefix="/data", tags=["Data"])
+app.include_router(acled_router, prefix="/acled", tags=["ACLED"])
+# Include other routers here
+
+# Debug endpoint to list all routes
+@app.get("/debug")
+async def debug():
+    """Debug endpoint to check if FastAPI is working"""
+    return {
+        "status": "ok",
+        "routes": [
+            {"path": route.path, "name": route.name}
+            for route in app.routes
+        ]
+    }
 
 # Root endpoint
 @app.get("/")
 async def root():
-    return {
-        "message": "Welcome to the GDELT Conflict Analysis API 🚀",
-        "documentation": "/docs",
-        "available_endpoints": [
-            "/sgm/countries",
-            "/sgm/countries/{country_code}",
-            "/sgm/regions",
-            "/sgm/run-analysis",
-            "/gdelt/events",
-            "/nlp/results"
-        ]
-    }
+    return {"message": "Welcome to the GDELT & ACLED Analysis API 🚀"}
 
 # Run Uvicorn server when executed directly
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=4041, reload=True)
+    uvicorn.run("app.main:app", host="127.0.0.1", port=4041, reload=True)
