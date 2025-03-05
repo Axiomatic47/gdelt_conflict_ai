@@ -1,333 +1,253 @@
-#!/usr/bin/env python3
 """
-ACLED Client Module - Functions for fetching and processing ACLED conflict data
+ACLED Client - Functions for fetching and processing ACLED data
 """
-
-import os
-import json
 import logging
+from typing import List, Dict, Any, Optional, Union, Tuple
 import requests
-import datetime
-from typing import List, Dict, Any, Optional
-import pymongo
+from datetime import datetime, timedelta
+import os
+import certifi
+import ssl
 from dotenv import load_dotenv
+from pymongo import MongoClient
+
+# Load environment variables
+load_dotenv()
+MONGO_URI = os.getenv("MONGODB_URI")
+ACLED_API_KEY = os.getenv("ACLED_API_KEY", "")  # API key for ACLED
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Load environment variables
-load_dotenv()
+# Connect to MongoDB if URI is provided
+mongo_client = None
+acled_collection = None
 
-# ACLED API access information
-ACLED_API_URL = "https://api.acleddata.com/acled/read"
-ACLED_API_KEY = os.getenv("ACLED_API_KEY", "")
+if MONGO_URI:
+    try:
+        # Use certifi for proper certificate validation
+        mongo_client = MongoClient(
+            MONGO_URI,
+            tls=True,
+            tlsCAFile=certifi.where(),
+            serverSelectionTimeoutMS=10000
+        )
 
-# MongoDB connection string
-MONGO_URI = os.getenv("MONGODB_URI", "")
+        # Force a connection test
+        mongo_client.admin.command('ping')
 
-# Local storage for development/fallback
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../data")
-ACLED_CACHE_FILE = os.path.join(DATA_DIR, "acled_events.json")
+        db = mongo_client["gdelt_db"]
+        acled_collection = db["acled_events"]
+        logger.info("✅ Connected to MongoDB for ACLED data successfully!")
+    except Exception as e:
+        logger.error(f"❌ Failed to connect to MongoDB: {str(e)}")
+        logger.warning("MongoDB connection failed for ACLED: %s", str(e))
 
-# Ensure data directory exists
-os.makedirs(DATA_DIR, exist_ok=True)
 
-# Initialize MongoDB connection
-try:
-    mongo_client = pymongo.MongoClient(MONGO_URI)
-    db = mongo_client["gdelt_db"]
-    acled_collection = db["acled_events"]
-    logger.info("✅ Connected to MongoDB successfully")
-except Exception as e:
-    logger.warning(f"MongoDB connection failed: {str(e)}")
-    mongo_client = None
-    acled_collection = None
-
-def fetch_and_store_acled(days_back: int = 30, limit: int = 500) -> bool:
+def fetch_acled_data(days_back: int = 30, limit: int = 500) -> bool:
     """
-    Fetch recent events from ACLED API and store them in MongoDB.
+    Fetch conflict event data from ACLED API
 
     Args:
-        days_back: Number of days to look back for events
+        days_back: Number of days to look back
         limit: Maximum number of events to fetch
 
     Returns:
         bool: True if successful, False otherwise
     """
-    try:
-        # Calculate date range
-        end_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        start_date = (datetime.datetime.now() - datetime.timedelta(days=days_back)).strftime("%Y-%m-%d")
+    logger.info(f"Fetching ACLED data for past {days_back} days, limit {limit}")
 
-        logger.info(f"Fetching ACLED data from {start_date} to {end_date}")
-
-        # Build API request parameters
-        params = {
-            "key": ACLED_API_KEY,
-            "event_date": f"{start_date}|{end_date}",
-            "event_date_where": "BETWEEN",
-            "limit": limit,
-            "terms": "accept",
-        }
-
-        # If no API key, use sample data
-        if not ACLED_API_KEY:
-            logger.warning("⚠️ No ACLED API key found, using sample data")
-            return _store_sample_acled_data()
-
-        # Make API request
-        response = requests.get(ACLED_API_URL, params=params)
-
-        # Check response
-        if response.status_code != 200:
-            logger.error(f"❌ ACLED API error: {response.status_code} - {response.text}")
-            return _store_sample_acled_data()
-
-        # Parse response
-        data = response.json()
-        events = data.get("data", [])
-        logger.info(f"✅ Fetched {len(events)} events from ACLED API")
-
-        # Save to local cache for development/fallback
-        with open(ACLED_CACHE_FILE, "w") as f:
-            json.dump(events, f, indent=2)
-        logger.info(f"✅ Cached ACLED data to {ACLED_CACHE_FILE}")
-
-        # Store in MongoDB if available
-        if acled_collection:
-            try:
-                # Clear existing events in the date range
-                acled_collection.delete_many({
-                    "event_date": {"$gte": start_date, "$lte": end_date}
-                })
-
-                # Insert new events
-                if events:
-                    # Add timestamp to each event
-                    for event in events:
-                        event["fetched_at"] = datetime.datetime.now().isoformat()
-
-                    acled_collection.insert_many(events)
-
-                logger.info(f"✅ Stored {len(events)} ACLED events in MongoDB")
-                return True
-            except Exception as e:
-                logger.error(f"❌ MongoDB storage error: {str(e)}")
-                return False
-        else:
-            logger.warning("⚠️ MongoDB not available, data stored in local cache only")
-            return True
-
-    except Exception as e:
-        logger.error(f"❌ Error fetching ACLED data: {str(e)}")
-        return _store_sample_acled_data()
-
-def _store_sample_acled_data() -> bool:
-    """
-    Create and store sample ACLED data for development and testing.
-
-    Returns:
-        bool: True if successful, False otherwise
-    """
-    try:
-        # Sample data based on ACLED structure
-        sample_events = [
-            {
-                "data_id": "1",
-                "event_date": datetime.datetime.now().strftime("%Y-%m-%d"),
-                "event_type": "Violence against civilians",
-                "actor1": "Armed Group A",
-                "actor2": "Civilians",
-                "country": "Somalia",
-                "location": "Mogadishu",
-                "latitude": 2.0469,
-                "longitude": 45.3182,
-                "fatalities": 5,
-                "notes": "Armed attack against civilian population",
-                "source": "Local Media",
-                "fetched_at": datetime.datetime.now().isoformat()
-            },
-            {
-                "data_id": "2",
-                "event_date": (datetime.datetime.now() - datetime.timedelta(days=2)).strftime("%Y-%m-%d"),
-                "event_type": "Battle-No change of territory",
-                "actor1": "Military Forces",
-                "actor2": "Rebel Group B",
-                "country": "Ethiopia",
-                "location": "Addis Ababa",
-                "latitude": 9.0084,
-                "longitude": 38.7668,
-                "fatalities": 12,
-                "notes": "Clashes between military and rebel forces",
-                "source": "International Observer",
-                "fetched_at": datetime.datetime.now().isoformat()
-            },
-            {
-                "data_id": "3",
-                "event_date": (datetime.datetime.now() - datetime.timedelta(days=4)).strftime("%Y-%m-%d"),
-                "event_type": "Riots",
-                "actor1": "Protesters",
-                "actor2": "Police Forces",
-                "country": "Kenya",
-                "location": "Nairobi",
-                "latitude": -1.2921,
-                "longitude": 36.8219,
-                "fatalities": 2,
-                "notes": "Protests over election results turned violent",
-                "source": "Local Media",
-                "fetched_at": datetime.datetime.now().isoformat()
-            },
-            {
-                "data_id": "4",
-                "event_date": (datetime.datetime.now() - datetime.timedelta(days=7)).strftime("%Y-%m-%d"),
-                "event_type": "Violence against civilians",
-                "actor1": "Militant Group C",
-                "actor2": "Civilians",
-                "country": "Nigeria",
-                "location": "Lagos",
-                "latitude": 6.5244,
-                "longitude": 3.3792,
-                "fatalities": 8,
-                "notes": "Attack on village by militant group",
-                "source": "NGO Report",
-                "fetched_at": datetime.datetime.now().isoformat()
-            }
-        ]
-
-        # Save to local cache
-        with open(ACLED_CACHE_FILE, "w") as f:
-            json.dump(sample_events, f, indent=2)
-        logger.info(f"✅ Created sample ACLED data in {ACLED_CACHE_FILE}")
-
-        # Store in MongoDB if available
-        if acled_collection:
-            try:
-                # Clear existing sample data
-                acled_collection.delete_many({"data_id": {"$in": ["1", "2", "3", "4"]}})
-
-                # Insert sample data
-                acled_collection.insert_many(sample_events)
-                logger.info(f"✅ Stored sample ACLED data in MongoDB")
-                return True
-            except Exception as e:
-                logger.error(f"❌ MongoDB storage error: {str(e)}")
-                return False
-        else:
-            logger.warning("⚠️ MongoDB not available, sample data stored in local cache only")
-            return True
-
-    except Exception as e:
-        logger.error(f"❌ Error creating sample ACLED data: {str(e)}")
+    # Skip if no API key available
+    if not ACLED_API_KEY:
+        logger.error("ACLED API key not found. Set ACLED_API_KEY environment variable.")
         return False
 
-def get_acled_data_for_heatmap() -> List[Dict[str, Any]]:
-    """
-    Retrieve ACLED event data for visualization in the heatmap.
+    # Calculate date range
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=days_back)
 
-    Returns:
-        List[Dict]: List of ACLED events with coordinates and intensity
-    """
+    # Format dates for ACLED API (YYYY-MM-DD)
+    start_date_str = start_date.strftime("%Y-%m-%d")
+    end_date_str = end_date.strftime("%Y-%m-%d")
+
+    # ACLED API URL
+    api_url = "https://api.acleddata.com/acled/read"
+
+    # Query parameters
+    params = {
+        "key": ACLED_API_KEY,
+        "email": os.getenv("ACLED_EMAIL", "your.email@example.com"),
+        "limit": limit,
+        "event_date": f"{start_date_str}|{end_date_str}",
+        "event_date_where": "BETWEEN",
+        "format": "json"
+    }
+
     try:
-        # Try to retrieve from MongoDB first
-        if acled_collection:
-            try:
-                # Fetch the most recent events
-                mongo_events = list(acled_collection.find({}).sort("fetched_at", -1).limit(100))
+        # Make API request
+        response = requests.get(api_url, params=params)
 
-                if mongo_events:
-                    logger.info(f"Retrieved {len(mongo_events)} ACLED events from MongoDB")
+        if response.status_code == 200:
+            data = response.json()
+            events = data.get("data", [])
 
-                    # Process MongoDB results for heatmap
-                    return _process_events_for_heatmap(mongo_events)
+            # Transform to our events format
+            transformed_events = []
+            for event in events:
+                transformed_event = {
+                    "id": event.get("data_id", f"acled-{len(transformed_events)}"),
+                    "event_date": event.get("event_date", end_date.strftime("%Y-%m-%d")),
+                    "event_type": event.get("event_type", "Unknown"),
+                    "actor1": event.get("actor1", None),
+                    "actor2": event.get("actor2", None),
+                    "country": event.get("country", "Unknown"),
+                    "location": event.get("location", None),
+                    "latitude": float(event.get("latitude", 0)),
+                    "longitude": float(event.get("longitude", 0)),
+                    "data_source": "ACLED",
+                    "description": event.get("notes", None),
+                    "fatalities": int(event.get("fatalities", 0)),
+                    "intensity": calculate_intensity(event)
+                }
+                transformed_events.append(transformed_event)
 
-            except Exception as e:
-                logger.warning(f"MongoDB retrieval failed: {str(e)}")
+            logger.info(f"Successfully fetched {len(transformed_events)} events from ACLED API")
 
-        # Fall back to local file if MongoDB failed or returned no results
-        if os.path.exists(ACLED_CACHE_FILE):
-            with open(ACLED_CACHE_FILE, "r") as f:
-                file_events = json.load(f)
+            # Store in MongoDB if available
+            if acled_collection and transformed_events:
+                try:
+                    # Use bulk operations for efficiency
+                    bulk_ops = []
+                    for event in transformed_events:
+                        bulk_ops.append({
+                            'updateOne': {
+                                'filter': {'id': event['id']},
+                                'update': {'$set': event},
+                                'upsert': True
+                            }
+                        })
 
-            logger.info(f"Retrieved {len(file_events)} ACLED events from local file")
+                    if bulk_ops:
+                        acled_collection.bulk_write(bulk_ops)
+                        logger.info(f"Stored {len(transformed_events)} ACLED events in MongoDB")
+                except Exception as e:
+                    logger.error(f"Error storing ACLED events in MongoDB: {str(e)}")
 
-            # Process file results for heatmap
-            return _process_events_for_heatmap(file_events)
-
-        # If no data available, create and use sample data
-        logger.warning("No ACLED data available, creating sample data")
-        _store_sample_acled_data()
-
-        with open(ACLED_CACHE_FILE, "r") as f:
-            sample_events = json.load(f)
-
-        logger.info(f"Using {len(sample_events)} sample ACLED events")
-
-        # Process sample data for heatmap
-        return _process_events_for_heatmap(sample_events)
-
+            return True
+        else:
+            logger.error(f"ACLED API error: {response.status_code}, {response.text}")
+            return False
     except Exception as e:
-        logger.error(f"❌ Error getting ACLED data for heatmap: {str(e)}")
-        return []
+        logger.error(f"Error fetching from ACLED API: {str(e)}")
+        return False
 
-def _process_events_for_heatmap(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+
+def get_stored_events(limit: int = 500) -> List[Dict[str, Any]]:
     """
-    Process ACLED events for heatmap visualization.
+    Get stored ACLED events from MongoDB
 
     Args:
-        events: List of ACLED events from API or cache
+        limit: Maximum number of events to retrieve
 
     Returns:
-        List[Dict]: Processed events with normalized data for heatmap
+        List of ACLED event data
     """
-    processed_events = []
+    logger.info(f"Retrieving up to {limit} ACLED events from storage")
 
-    for event in events:
-        # Ensure all required fields are present
-        processed_event = {
-            "id": event.get("data_id", str(hash(str(event)))),
-            "event_date": event.get("event_date", ""),
-            "event_type": event.get("event_type", "Unknown"),
-            "country": event.get("country", "Unknown"),
-            "location": event.get("location", ""),
-            "latitude": float(event.get("latitude", 0)),
-            "longitude": float(event.get("longitude", 0)),
-            "data_source": "ACLED"
-        }
+    # Try to fetch from MongoDB
+    if acled_collection:
+        try:
+            events = list(acled_collection.find(
+                {"data_source": "ACLED"},
+                {"_id": 0}  # Exclude MongoDB _id
+            ).sort("event_date", -1).limit(limit))
 
-        # Add optional fields if available
-        if "actor1" in event:
-            processed_event["actor1"] = event["actor1"]
+            logger.info(f"Retrieved {len(events)} ACLED events from MongoDB")
+            return events
+        except Exception as e:
+            logger.error(f"Error fetching ACLED events from MongoDB: {str(e)}")
 
-        if "actor2" in event:
-            processed_event["actor2"] = event["actor2"]
+    # Fall back to sample data
+    logger.warning("MongoDB not available or empty, using sample ACLED data")
+    return SAMPLE_ACLED_EVENTS
 
-        if "fatalities" in event:
-            processed_event["fatalities"] = int(event["fatalities"])
 
-            # Calculate intensity based on fatalities (0-10 scale)
-            # Higher fatalities = higher intensity
-            # 0 fatalities = 3, 5 fatalities = 6, 10+ fatalities = 10
-            processed_event["intensity"] = min(10, 3 + (int(event["fatalities"]) * 0.7))
-        else:
-            # Default intensity if no fatalities data
-            processed_event["intensity"] = 5
+def calculate_intensity(event: Dict[str, Any]) -> float:
+    """Calculate intensity score (0-10) for an ACLED event"""
+    base_intensity = 5  # Default mid-range intensity
 
-        # Add description from notes if available
-        if "notes" in event:
-            processed_event["description"] = event["notes"]
+    # Adjust based on event type
+    event_type_map = {
+        "Violence against civilians": 2,  # Increase intensity
+        "Battle": 3,  # Significant increase
+        "Explosion/Remote violence": 3,  # Significant increase
+        "Riots": 1,  # Slight increase
+        "Protests": 0,  # No change
+        "Strategic development": -1  # Decrease intensity
+    }
 
-        # Add source if available
-        if "source" in event:
-            processed_event["source"] = event["source"]
+    event_type = event.get("event_type", "")
+    type_adjustment = event_type_map.get(event_type, 0)
 
-        processed_events.append(processed_event)
+    # Adjust based on fatalities
+    fatalities = int(event.get("fatalities", 0)) or 0
+    fatality_adjustment = 0
+    if fatalities > 0:
+        fatality_adjustment = min(3, fatalities // 5)  # Cap at +3
 
-    return processed_events
+    # Calculate final intensity (0-10 scale)
+    intensity = base_intensity + type_adjustment + fatality_adjustment
+    intensity = max(0, min(10, intensity))  # Ensure within 0-10 range
 
-# Run a test if executed directly
-if __name__ == "__main__":
-    print("🌐 ACLED Client Test")
-    fetch_and_store_acled(days_back=30, limit=100)
-    events = get_acled_data_for_heatmap()
-    print(f"Retrieved {len(events)} events for heatmap")
+    return intensity
+
+
+# Sample ACLED events for when API/MongoDB is not available
+SAMPLE_ACLED_EVENTS = [
+    {
+        "id": "acled-1",
+        "event_date": datetime.now().strftime("%Y-%m-%d"),
+        "event_type": "Violence against civilians",
+        "actor1": "Military Forces",
+        "actor2": "Civilians",
+        "country": "Somalia",
+        "location": "Mogadishu",
+        "latitude": 2.0469,
+        "longitude": 45.3182,
+        "data_source": "ACLED",
+        "description": "Military forces attacked civilians in Mogadishu",
+        "fatalities": 3,
+        "intensity": 7
+    },
+    {
+        "id": "acled-2",
+        "event_date": (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d"),
+        "event_type": "Battle",
+        "actor1": "Rebel Group",
+        "actor2": "Government Forces",
+        "country": "Sudan",
+        "location": "Khartoum",
+        "latitude": 15.5007,
+        "longitude": 32.5599,
+        "data_source": "ACLED",
+        "description": "Rebel forces engaged in battle with government troops",
+        "fatalities": 12,
+        "intensity": 9
+    },
+    {
+        "id": "acled-3",
+        "event_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
+        "event_type": "Riots",
+        "actor1": "Protesters",
+        "actor2": "Police Forces",
+        "country": "Nigeria",
+        "location": "Lagos",
+        "latitude": 6.5244,
+        "longitude": 3.3792,
+        "data_source": "ACLED",
+        "description": "Riots broke out in Lagos after fuel price increases",
+        "fatalities": 0,
+        "intensity": 6
+    }
+]
