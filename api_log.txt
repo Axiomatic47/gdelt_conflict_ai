@@ -1,0 +1,139 @@
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+2025-03-04 20:52:00,740 - __main__ - INFO - Starting API server on port 4041
+2025-03-04 20:52:00,740 - __main__ - INFO - Press CTRL+C to stop
+INFO:     Will watch for changes in these directories: ['/Users/jkm4/git/gdelt_conflict_ai']
+INFO:     Uvicorn running on http://0.0.0.0:4041 (Press CTRL+C to quit)
+INFO:     Started reloader process [69466] using StatReload
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [69468]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.0.0.81:61645 - "GET /health HTTP/1.1" 200 OK
+2025-03-04 21:03:52,757 - core.sgm_data_service - INFO - Retrieving SGM data for up to 200 countries (with details: True)
+2025-03-04 21:03:52,758 - core.sgm_data_service - WARNING - Using sample country data instead of MongoDB
+2025-03-04 21:03:52,758 - app.api_routes.sgm_routes - INFO - Retrieved SGM data for 8 countries
+INFO:     10.0.0.81:62572 - "GET /sgm/countries HTTP/1.1" 200 OK
+INFO:     10.0.0.81:62572 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+2025-03-04 21:04:04,618 - core.sgm_data_service - INFO - Retrieving SGM data for up to 200 countries (with details: True)
+2025-03-04 21:04:04,618 - core.sgm_data_service - WARNING - Using sample country data instead of MongoDB
+2025-03-04 21:04:04,618 - app.api_routes.sgm_routes - INFO - Retrieved SGM data for 8 countries
+INFO:     10.0.0.81:62578 - "GET /sgm/countries HTTP/1.1" 200 OK
+2025-03-04 21:04:04,623 - core.acled_client - INFO - Retrieving up to 500 ACLED events from storage
+2025-03-04 21:04:04,623 - core.acled_client - WARNING - MongoDB not available or empty, using sample ACLED data
+2025-03-04 21:04:04,623 - app.api_routes.acled_routes - INFO - Retrieved 3 ACLED events
+INFO:     10.0.0.81:62578 - "GET /acled/events HTTP/1.1" 200 OK
+2025-03-04 21:04:04,631 - app.api_routes.gdelt_routes - INFO - Fetching GDELT events
+2025-03-04 21:04:04,631 - core.gdelt_client - INFO - Fetching GDELT events for past 30 days, limit 100
+2025-03-04 21:04:04,631 - core.gdelt_client - INFO - No events in MongoDB or MongoDB not available, fetching from GDELT
+2025-03-04 21:04:04,631 - core.gdelt_client - INFO - Fetching GDELT data for past 30 days, limit 100
+2025-03-04 21:04:07,926 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-04 21:04:11,877 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-03-04 21:04:13,764 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-04 21:04:13,764 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-04 21:04:13,764 - core.gdelt_client - ERROR - Error fetching from BigQuery: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-03-04 21:04:14,012 - core.gdelt_client - ERROR - GDELT API error: 429, Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries.
+
+
+2025-03-04 21:04:14,012 - app.api_routes.gdelt_routes - INFO - No GDELT events found, using sample data
+INFO:     10.0.0.81:62579 - "GET /gdelt/events HTTP/1.1" 200 OK
+2025-03-04 21:04:14,026 - app.api_routes.sgm_routes - INFO - Fetching regional SGM data
+INFO:     10.0.0.81:62579 - "GET /sgm/regions HTTP/1.1" 200 OK
+2025-03-04 21:05:59,156 - core.sgm_data_service - INFO - Retrieving SGM data for up to 200 countries (with details: True)
+2025-03-04 21:05:59,157 - core.sgm_data_service - WARNING - Using sample country data instead of MongoDB
+2025-03-04 21:05:59,157 - app.api_routes.sgm_routes - INFO - Retrieved SGM data for 8 countries
+INFO:     10.0.0.81:62613 - "GET /sgm/countries HTTP/1.1" 200 OK
+2025-03-04 21:12:14,376 - core.sgm_data_service - INFO - Retrieving SGM data for up to 200 countries (with details: True)
+2025-03-04 21:12:14,378 - core.sgm_data_service - WARNING - Using sample country data instead of MongoDB
+2025-03-04 21:12:14,378 - app.api_routes.sgm_routes - INFO - Retrieved SGM data for 8 countries
+INFO:     10.0.0.81:62701 - "GET /sgm/countries HTTP/1.1" 200 OK
+2025-03-04 21:12:14,451 - core.acled_client - INFO - Retrieving up to 500 ACLED events from storage
+2025-03-04 21:12:14,451 - core.acled_client - WARNING - MongoDB not available or empty, using sample ACLED data
+2025-03-04 21:12:14,451 - app.api_routes.acled_routes - INFO - Retrieved 3 ACLED events
+INFO:     10.0.0.81:62701 - "GET /acled/events HTTP/1.1" 200 OK
+2025-03-04 21:12:14,457 - app.api_routes.gdelt_routes - INFO - Fetching GDELT events
+2025-03-04 21:12:14,457 - core.gdelt_client - INFO - Fetching GDELT events for past 30 days, limit 100
+2025-03-04 21:12:14,457 - core.gdelt_client - INFO - No events in MongoDB or MongoDB not available, fetching from GDELT
+2025-03-04 21:12:14,457 - core.gdelt_client - INFO - Fetching GDELT data for past 30 days, limit 100
+2025-03-04 21:12:17,459 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-04 21:12:21,379 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-03-04 21:12:23,189 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-04 21:12:23,189 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-04 21:12:23,189 - core.gdelt_client - ERROR - Error fetching from BigQuery: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-03-04 21:12:23,527 - core.gdelt_client - ERROR - GDELT API error: 429, Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries.
+
+
+2025-03-04 21:12:23,527 - app.api_routes.gdelt_routes - INFO - No GDELT events found, using sample data
+INFO:     10.0.0.81:62704 - "GET /gdelt/events HTTP/1.1" 200 OK
+INFO:     10.0.0.81:62768 - "GET / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'scripts/populate_database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [69468]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [70989]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'scripts/populate_database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [70989]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [71152]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'scripts/populate_database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71152]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [71259]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'scripts/populate_database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71259]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [71277]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'scripts/populate_database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [71277]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [73349]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'core/gdelt_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [73349]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [75303]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'core/gdelt_client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [75303]
+/Users/jkm4/git/gdelt_conflict_ai/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [75628]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

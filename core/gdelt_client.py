@@ -8,6 +8,8 @@ from typing import List, Dict, Any, Optional
 import requests
 from datetime import datetime, timedelta
 import os
+import time
+import random
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -34,6 +36,27 @@ if MONGO_URI:
         logger.error(f"Failed to connect to MongoDB: {str(e)}")
 
 
+def fetch_with_retry(url, params, max_retries=3, base_wait=10):
+    """Fetch data from GDELT API with retries and backoff"""
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, params=params, timeout=15)
+            if response.status_code == 200:
+                return response.json()
+            elif response.status_code == 429:
+                wait_time = base_wait * (2 ** attempt) + random.uniform(0, 1)
+                logger.warning(f"Rate limited, waiting {wait_time:.2f}s (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+            else:
+                logger.error(f"API error: {response.status_code}, {response.text}")
+                break
+        except Exception as e:
+            logger.error(f"Request error: {str(e)}")
+            time.sleep(base_wait * (2 ** attempt))
+
+    return None  # Return None if all attempts failed
+
+
 def fetch_gdelt_data(days_back: int = 30, limit: int = 100) -> List[Dict[str, Any]]:
     """
     Fetch conflict-related data from GDELT API or BigQuery
@@ -54,11 +77,21 @@ def fetch_gdelt_data(days_back: int = 30, limit: int = 100) -> List[Dict[str, An
     # Try to use BigQuery if available
     try:
         from google.cloud import bigquery
+        from google.oauth2 import service_account
 
-        # Initialize BigQuery client
-        bq_client = bigquery.Client()
+        # Explicitly specify credentials file path
+        credentials_path = "/Users/jkm4/git/gdelt_conflict_ai/config/gdelt-bigquery-451802-759c8ed40f44.json"
 
-        # SQL query for GDELT events
+        # Create credentials object directly
+        credentials = service_account.Credentials.from_service_account_file(
+            credentials_path,
+            scopes=["https://www.googleapis.com/auth/cloud-platform"],
+        )
+
+        # Initialize BigQuery client with explicit credentials
+        bq_client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+
+        # SQL query for GDELT events with proper type handling
         query = f"""
         SELECT 
             CAST(SQLDATE AS STRING) as date,
@@ -72,14 +105,19 @@ def fetch_gdelt_data(days_back: int = 30, limit: int = 100) -> List[Dict[str, An
             ActionGeo_CountryCode as country_code,
             ActionGeo_FullName as location
         FROM `gdelt-bq.gdeltv2.events`
-        WHERE CAST(EventRootCode AS INT64) BETWEEN 14 AND 19  -- Conflict events
-          AND SQLDATE >= {start_date.strftime('%Y%m%d')}
-          AND ActionGeo_Lat IS NOT NULL
-          AND ActionGeo_Long IS NOT NULL
+        WHERE 
+            EventRootCode IS NOT NULL 
+            AND EventRootCode != '--'
+            AND REGEXP_CONTAINS(EventRootCode, r'^[0-9]+$')
+            AND SAFE_CAST(EventRootCode AS INT64) BETWEEN 14 AND 19  -- Conflict events
+            AND SQLDATE >= {start_date.strftime('%Y%m%d')}
+            AND ActionGeo_Lat IS NOT NULL
+            AND ActionGeo_Long IS NOT NULL
         ORDER BY SQLDATE DESC
         LIMIT {limit}
         """
 
+        logger.info("Executing BigQuery with explicit credentials")
         results = bq_client.query(query).result()
 
         # Convert to list of dictionaries
@@ -104,11 +142,23 @@ def fetch_gdelt_data(days_back: int = 30, limit: int = 100) -> List[Dict[str, An
         logger.info(f"Successfully fetched {len(events)} events from BigQuery")
 
         # Store in MongoDB if available
-        if gdelt_collection:
+        if gdelt_collection and events:
             try:
                 # Use bulk operations for efficiency
-                if events:
-                    gdelt_collection.insert_many(events)
+                bulk_ops = []
+                for event in events:
+                    # Create a compound ID to avoid duplicates
+                    event_id = f"{event['event_date']}-{event['actor1'] or 'unknown'}-{event['event_code']}"
+                    bulk_ops.append({
+                        'updateOne': {
+                            'filter': {'_id': event_id},
+                            'update': {'$set': {**event, '_id': event_id}},
+                            'upsert': True
+                        }
+                    })
+
+                if bulk_ops:
+                    gdelt_collection.bulk_write(bulk_ops)
                     logger.info(f"Stored {len(events)} GDELT events in MongoDB")
             except Exception as e:
                 logger.error(f"Error storing GDELT events in MongoDB: {str(e)}")
@@ -120,68 +170,92 @@ def fetch_gdelt_data(days_back: int = 30, limit: int = 100) -> List[Dict[str, An
     except Exception as e:
         logger.error(f"Error fetching from BigQuery: {str(e)}")
 
-    # Fall back to GDELT API
+    # Fall back to GDELT API with improved error handling
     try:
         # GDELT API URL
         api_url = "https://api.gdeltproject.org/api/v2/doc/doc"
 
-        # Query parameters
-        params = {
-            "query": "domain:conflict",
-            "format": "json",
-            "mode": "artlist",
-            "maxrecords": limit,
-            "timespan": f"{days_back}days"
-        }
+        events = []
+        batch_size = 5  # Request 5 records at a time to reduce rate limiting
 
-        # Add API key if available
-        if GDELT_API_KEY:
-            params["apikey"] = GDELT_API_KEY
+        for offset in range(0, limit, batch_size):
+            # Query parameters
+            params = {
+                "query": "domain:conflict",
+                "format": "json",
+                "mode": "artlist",
+                "maxrecords": min(batch_size, limit - offset),
+                "timespan": f"{days_back}days"
+            }
 
-        # Make API request
-        response = requests.get(api_url, params=params)
+            # Add API key if available
+            if GDELT_API_KEY:
+                params["apikey"] = GDELT_API_KEY
 
-        if response.status_code == 200:
-            data = response.json()
-            articles = data.get("articles", [])
+            # Make API request with retry mechanism
+            data = fetch_with_retry(api_url, params)
 
-            # Transform to our events format
-            events = []
-            for article in articles:
-                # Extract location if available
-                geo = article.get("geonames", [{}])[0] if article.get("geonames") else {}
+            if data:
+                articles = data.get("articles", [])
 
-                event = {
-                    "event_date": article.get("seendate", end_date.strftime("%Y-%m-%d")),
-                    "actor1": None,  # Not available from this API
-                    "actor2": None,  # Not available from this API
-                    "event_code": "14",  # Default to conflict
-                    "event_type": "Conflict",  # Generic type
-                    "goldstein_scale": None,  # Not available from this API
-                    "avg_tone": article.get("tone", None),
-                    "latitude": geo.get("lat", 0),
-                    "longitude": geo.get("lon", 0),
-                    "country": geo.get("countryname", "Unknown"),
-                    "location": geo.get("name", article.get("location", None)),
-                    "data_source": "GDELT",
-                    "description": article.get("title", None)
-                }
-                events.append(event)
+                # Transform to our events format
+                for article in articles:
+                    # Extract location if available
+                    geo = article.get("geonames", [{}])[0] if article.get("geonames") else {}
 
-            logger.info(f"Successfully fetched {len(events)} events from GDELT API")
+                    event = {
+                        "event_date": article.get("seendate", end_date.strftime("%Y-%m-%d")),
+                        "actor1": None,  # Not available from this API
+                        "actor2": None,  # Not available from this API
+                        "event_code": "14",  # Default to conflict
+                        "event_type": "Conflict",  # Generic type
+                        "goldstein_scale": None,  # Not available from this API
+                        "avg_tone": article.get("tone", None),
+                        "latitude": geo.get("lat", 0),
+                        "longitude": geo.get("lon", 0),
+                        "country": geo.get("countryname", "Unknown"),
+                        "location": geo.get("name", article.get("location", None)),
+                        "data_source": "GDELT",
+                        "description": article.get("title", None)
+                    }
+                    events.append(event)
 
-            # Store in MongoDB if available
-            if gdelt_collection and events:
-                try:
-                    gdelt_collection.insert_many(events)
+                # Wait 10 seconds between requests to avoid rate limiting
+                if offset + batch_size < limit:
+                    logger.info(f"Waiting 10s before next batch to avoid rate limiting...")
+                    time.sleep(10)
+            else:
+                # If we got no data after retries, break the loop
+                break
+
+        logger.info(f"Successfully fetched {len(events)} events from GDELT API")
+
+        # Store in MongoDB if available
+        if gdelt_collection and events:
+            try:
+                # Create a unique ID for each event to avoid duplicates
+                for event in events:
+                    event["_id"] = f"{event['event_date']}-{event.get('description', '')[:20]}"
+
+                # Use bulk upsert operations
+                bulk_ops = []
+                for event in events:
+                    event_id = event.pop("_id")
+                    bulk_ops.append({
+                        'updateOne': {
+                            'filter': {'_id': event_id},
+                            'update': {'$set': event},
+                            'upsert': True
+                        }
+                    })
+
+                if bulk_ops:
+                    gdelt_collection.bulk_write(bulk_ops)
                     logger.info(f"Stored {len(events)} GDELT events in MongoDB")
-                except Exception as e:
-                    logger.error(f"Error storing GDELT events in MongoDB: {str(e)}")
+            except Exception as e:
+                logger.error(f"Error storing GDELT events in MongoDB: {str(e)}")
 
-            return events
-        else:
-            logger.error(f"GDELT API error: {response.status_code}, {response.text}")
-            return []
+        return events
     except Exception as e:
         logger.error(f"Error fetching from GDELT API: {str(e)}")
         return []

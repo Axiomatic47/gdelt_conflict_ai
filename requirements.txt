@@ -33,7 +33,7 @@ markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 mdurl==0.1.2
 narwhals==1.27.1
-numpy==2.2.3
+numpy==2.0.2
 oauthlib==3.2.2
 openai==1.64.0
 packaging==24.2
